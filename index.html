@@ -6,6 +6,10 @@
 <title>Bybit 시작 가이드</title>
 <meta name="description" content="Bybit 가입부터 입금·레버리지까지, 실제 화면 캡처로 따라가는 5단계 가이드.">
 <link rel="canonical" href="https://bybitstart.github.io/">
+<link rel="alternate" hreflang="ko" href="https://bybitstart.github.io/">
+<link rel="alternate" hreflang="en" href="https://bybitstart.github.io/en/">
+<link rel="alternate" hreflang="zh" href="https://bybitstart.github.io/zh/">
+<link rel="alternate" hreflang="x-default" href="https://bybitstart.github.io/">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230c0d10'/%3E%3Ccircle cx='16' cy='16' r='7' fill='%23f7a600'/%3E%3C/svg%3E">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://bybitstart.github.io/">
@@ -74,6 +78,35 @@ header{
 .tab:hover{color:var(--tx)}
 .tab:focus-visible,.nav:focus-visible,.ti:focus-visible,.cta:focus-visible,.code button:focus-visible{outline:2px solid var(--acc2); outline-offset:2px}
 /* ※ 탭 class에 "toc"를 쓰면 표지 목차 리스트 .toc 규칙에 같이 걸림 — 금지 */
+/* ── 언어 전환 (PC: 탭 줄 끝 알약 / 폰: 탭 옆 버튼 → 목록). 바이비트가 받지 않는 나라(미국·중국 본토 등)가 있어 국기 대신 글자 ── */
+.langs{display:flex; gap:2px; border:1px solid var(--line); border-radius:99px; padding:2px; background:#121318; flex:none}
+.langs a{
+  display:inline-flex; align-items:center; justify-content:center; height:24px; padding:0 10px;
+  font-size:11.5px; line-height:1; font-weight:700; color:var(--tx3); text-decoration:none; border-radius:99px; letter-spacing:.02em; white-space:nowrap;
+}
+.langs a.on{background:rgba(247,166,0,.14); color:var(--acc)}
+.langs a:hover{color:var(--tx)}
+.tabs .langs{margin-left:12px; align-self:center}
+.lsel{display:none; position:relative; align-self:center; margin-left:4px}
+.lbtn{
+  min-width:38px; height:30px; border-radius:99px; border:1px solid var(--line); background:#121318; cursor:pointer;
+  display:grid; place-items:center; padding:0 9px; font-family:'Inter',var(--font); font-size:12px; font-weight:800; color:var(--tx2); letter-spacing:.04em;
+}
+.lsel.open .lbtn{border-color:var(--acc); color:var(--acc)}
+.lmenu{
+  display:none; position:absolute; right:0; top:36px; z-index:30; min-width:150px;
+  background:#16171c; border:1px solid var(--line); border-radius:12px; padding:6px; box-shadow:0 12px 32px rgba(0,0,0,.55);
+}
+.lsel.open .lmenu{display:block}
+.lmenu a{display:flex; align-items:center; gap:10px; padding:9px 11px; border-radius:8px; color:var(--tx2); text-decoration:none; font-size:14px; font-weight:600; white-space:nowrap}
+.lmenu a .flag{min-width:24px; font-family:'Inter',var(--font); font-size:11px; font-weight:800; color:var(--tx3); letter-spacing:.04em}
+.lmenu a.on{color:var(--acc); background:rgba(247,166,0,.1)}
+.lmenu a.on .flag{color:var(--acc)}
+/* 영문·중문판 보정 (KO 원본에서는 무효) */
+html[lang="en"] .steps li{font-size:15px}
+html[lang="en"] .tip p{font-size:13px}
+html[lang="en"] .ti small{font-size:10.5px}
+html[lang="zh-CN"] body{font-family:'Inter','Noto Sans SC','Noto Sans KR',-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif}
 .bar{position:relative; z-index:3; flex:none; height:2px; background:var(--line); margin:0 20px; border-radius:2px; overflow:hidden}
 .bar i{display:block; height:100%; width:0; background:linear-gradient(90deg,var(--acc-dim),var(--acc2)); transition:width .35s cubic-bezier(.4,0,.2,1)}
 
@@ -325,6 +358,13 @@ p strong{color:var(--tx); font-weight:600}
   :root{--card-w:88vw; --card-h:min(100%, 720px)}
   header{padding:8px 12px 3px; grid-template-columns:1fr; gap:0}
   .brand{display:none}
+  .tabs .langs{display:none}
+  .lsel{display:block}
+  html[lang="zh-CN"] .tab{font-size:13.5px}
+  html[lang="en"] .tab{font-size:12.5px; padding:5px 6px 8px}
+  html[lang="en"] .tab::after{left:6px; right:6px}
+  html[lang="en"] .tab i{left:6px}
+  html[lang="en"] .tab.home{display:none}   /* 영문은 폰에서 탭이 넘쳐서 '목차' 탭은 숨김(하단 Contents 버튼이 대신) */
   .tabs{gap:4px}
   .tab{padding:5px 9px 8px}
   .track{padding:12px calc(50% - var(--card-w)/2) 6px; gap:12px}
@@ -393,6 +433,15 @@ p strong{color:var(--tx); font-weight:600}
     <button class="tab" type="button" data-title="본인 인증">인증<i></i></button>
     <button class="tab" type="button" data-title="코인 넣기">입금<i></i></button>
     <button class="tab" type="button" data-title="레버리지">선물<i></i></button>
+    <div class="langs" id="langs"><a href="./" data-l="ko" class="on">한국어</a><a href="en/" data-l="en">EN</a><a href="zh/" data-l="zh">中文</a></div>
+    <div class="lsel" id="lsel">
+      <button class="lbtn" id="lbtn" type="button" aria-label="언어 선택"><span class="flag">KO</span></button>
+      <div class="lmenu">
+        <a href="./" data-l="ko" class="on"><span class="flag">KO</span>한국어</a>
+        <a href="en/" data-l="en"><span class="flag">EN</span>English</a>
+        <a href="zh/" data-l="zh"><span class="flag">中</span>中文</a>
+      </div>
+    </div>
   </nav>
   <span></span>
 </header>
@@ -689,8 +738,8 @@ p strong{color:var(--tx); font-weight:600}
     </div>
   </article>
 
-  <!-- 입금 2 빗썸에서 USDT 사기 -->
-  <article class="card">
+  <!-- 입금 2 빗썸에서 USDT 사기 (한국판 전용 — 영문·중문 빌드에서 뺌) -->
+  <article class="card" data-only="ko">
     <div class="head"><span class="sect">입금 2</span><span class="src bt">빗썸 앱</span><span class="num">12</span></div>
     <h2>빗썸에서<br><em>USDT 사기</em></h2>
     <figure class="shot">
@@ -789,8 +838,8 @@ p strong{color:var(--tx); font-weight:600}
     </div>
   </article>
 
-  <!-- 입금 6 빗썸 출금 열기 -->
-  <article class="card">
+  <!-- 입금 6 빗썸 출금 열기 (한국판 전용) -->
+  <article class="card" data-only="ko">
     <div class="head"><span class="sect">입금 6</span><span class="src bt">빗썸 앱</span><span class="num">16</span></div>
     <h2>빗썸 USDT<br><em>출금 열기</em></h2>
     <figure class="shot">
@@ -815,8 +864,8 @@ p strong{color:var(--tx); font-weight:600}
     </div>
   </article>
 
-  <!-- 입금 7 빗썸 트론 출금 -->
-  <article class="card warn">
+  <!-- 입금 7 빗썸 트론 출금 (한국판 전용) -->
+  <article class="card warn" data-only="ko">
     <div class="head"><span class="sect">입금 7</span><span class="src bt">빗썸 앱</span><span class="num">17</span></div>
     <h2>트론으로<br><em>출금하기</em></h2>
     <figure class="shot">
@@ -1140,6 +1189,13 @@ p strong{color:var(--tx); font-weight:600}
   if(tocTab) tocTab.addEventListener('click', function(){ go(0); });
   home.addEventListener('click', function(){ go(0); });
   document.getElementById('brand').addEventListener('click', function(){ go(0); });
+  /* 폰 언어 버튼 → 목록 */
+  (function(){
+    var sel = document.getElementById('lsel'), btn = document.getElementById('lbtn'); if(!sel || !btn) return;
+    var on = sel.querySelector('.lmenu a.on .flag'); if(on) btn.querySelector('.flag').textContent = on.textContent;
+    btn.addEventListener('click', function(e){ e.stopPropagation(); sel.classList.toggle('open'); });
+    document.addEventListener('click', function(){ sel.classList.remove('open'); });
+  })();
   document.addEventListener('click', function(e){
     var b = e.target && e.target.closest ? e.target.closest('[data-go]') : null;
     if(!b) return;

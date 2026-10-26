@@ -1,0 +1,1232 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Bybit Start Guide</title>
+<meta name="description" content="From Bybit sign-up to deposit and leverage — a 5-step guide with real screenshots.">
+<link rel="canonical" href="https://bybitstart.github.io/en/">
+<link rel="alternate" hreflang="ko" href="https://bybitstart.github.io/">
+<link rel="alternate" hreflang="en" href="https://bybitstart.github.io/en/">
+<link rel="alternate" hreflang="zh" href="https://bybitstart.github.io/zh/">
+<link rel="alternate" hreflang="x-default" href="https://bybitstart.github.io/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230c0d10'/%3E%3Ccircle cx='16' cy='16' r='7' fill='%23f7a600'/%3E%3C/svg%3E">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://bybitstart.github.io/en/">
+<meta property="og:title" content="Bybit Start Guide">
+<meta property="og:description" content="Sign-up · Security · Identity · Deposit — a 5-step guide with real screenshots.">
+<meta property="og:image" content="https://bybitstart.github.io/shots/og_en.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+KR:wght@400;500;700;900&display=swap">
+<style>
+/* OKX 시작 가이드(okxstart.github.io)와 같은 틀 — 색만 바이비트 주황으로.
+   규격: 제목 두 줄(윗줄 대상 흰색 / 아랫줄 ~하기 주황) · 그림 박스 높이 고정 · 주황 네모 ↔ 설명 번호 1:1 · 설명 16px · 문장 끝에서 줄바꿈 */
+:root{
+  --ink:#0c0d10; --line:#24262c;
+  --acc:#f7a600; --acc2:#ffbb33; --acc-dim:#e39500; --on-acc:#1a1100;
+  --info:#7fb2ff; --rose:#ff6b6b; --sky:#6cc4ff;
+  --tx:#eef0f3; --tx2:#a7acb6; --tx3:#6b717b;
+  --card-w:min(500px, 90vw);
+  --card-h:min(100%, 690px);
+  --media-h:242px;                          /* ★캡처/자리 박스 = 전 카드 동일 높이 */
+  --media-in:calc(var(--media-h) - 35px);   /* 위10 + 아래25 패딩 제외한 실제 그림 높이 */
+  --h2-h:55px;                              /* ★제목 = 전 카드 두 줄 높이로 고정 */
+  --font:'Inter','Noto Sans KR',-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%}
+body{
+  background:var(--ink); color:var(--tx); font-family:var(--font);
+  -webkit-font-smoothing:antialiased; overflow:hidden;
+  display:flex; flex-direction:column;
+}
+body::before{
+  content:''; position:fixed; inset:0; pointer-events:none; z-index:0;
+  background:
+    radial-gradient(900px 520px at 12% -8%, rgba(247,166,0,.10), transparent 62%),
+    radial-gradient(760px 460px at 92% 108%, rgba(247,166,0,.06), transparent 60%);
+}
+
+header{
+  position:relative; z-index:3; flex:none;
+  padding:10px 20px 6px; display:grid; grid-template-columns:1fr auto 1fr; align-items:center; gap:12px;
+}
+.brand{display:flex; align-items:center; gap:9px; font-weight:800; font-size:13px; letter-spacing:.14em; cursor:pointer}
+.dot{width:8px; height:8px; border-radius:50%; background:var(--acc); box-shadow:0 0 12px var(--acc)}
+.brand i{font-style:normal}
+/* ── 상단 섹션 탭 (Contents·Sign up·Security·ID·Deposit·Futures) — 밑줄이 그 섹션 안 진행률 ── */
+.tabs{justify-self:center; flex:none; display:flex; gap:6px}
+.tab{
+  font-family:inherit; cursor:pointer; background:none; border:0; position:relative;
+  color:var(--tx2); font-size:14px; font-weight:700; letter-spacing:.01em; white-space:nowrap;
+  padding:5px 9px 9px; transition:color .18s;
+}
+.tab::after{content:''; position:absolute; left:9px; right:9px; bottom:3px; height:2px; border-radius:2px; background:var(--line)}
+.tab i{
+  position:absolute; left:9px; bottom:3px; height:2px; width:0; border-radius:2px; z-index:1;
+  background:linear-gradient(90deg,var(--acc-dim),var(--acc2));
+  transition:width .35s cubic-bezier(.4,0,.2,1);
+}
+.tab.home{margin-right:6px; padding-right:12px; border-right:1px solid var(--line); border-radius:0}
+.tab.home::after{right:12px}
+.tab.done{color:var(--tx)}
+.tab.on{color:var(--acc)}
+.tab:hover{color:var(--tx)}
+.tab:focus-visible,.nav:focus-visible,.ti:focus-visible,.cta:focus-visible,.code button:focus-visible{outline:2px solid var(--acc2); outline-offset:2px}
+/* ※ 탭 class에 "toc"를 쓰면 표지 Contents 리스트 .toc 규칙에 같이 걸림 — 금지 */
+/* ── 언어 전환 (PC: 탭 줄 끝 알약 / 폰: 탭 옆 버튼 → 목록). 바이비트가 받지 않는 나라(미국·중국 본토 등)가 있어 국기 대신 글자 ── */
+.langs{display:flex; gap:2px; border:1px solid var(--line); border-radius:99px; padding:2px; background:#121318; flex:none}
+.langs a{
+  display:inline-flex; align-items:center; justify-content:center; height:24px; padding:0 10px;
+  font-size:11.5px; line-height:1; font-weight:700; color:var(--tx3); text-decoration:none; border-radius:99px; letter-spacing:.02em; white-space:nowrap;
+}
+.langs a.on{background:rgba(247,166,0,.14); color:var(--acc)}
+.langs a:hover{color:var(--tx)}
+.tabs .langs{margin-left:12px; align-self:center}
+.lsel{display:none; position:relative; align-self:center; margin-left:4px}
+.lbtn{
+  min-width:38px; height:30px; border-radius:99px; border:1px solid var(--line); background:#121318; cursor:pointer;
+  display:grid; place-items:center; padding:0 9px; font-family:'Inter',var(--font); font-size:12px; font-weight:800; color:var(--tx2); letter-spacing:.04em;
+}
+.lsel.open .lbtn{border-color:var(--acc); color:var(--acc)}
+.lmenu{
+  display:none; position:absolute; right:0; top:36px; z-index:30; min-width:150px;
+  background:#16171c; border:1px solid var(--line); border-radius:12px; padding:6px; box-shadow:0 12px 32px rgba(0,0,0,.55);
+}
+.lsel.open .lmenu{display:block}
+.lmenu a{display:flex; align-items:center; gap:10px; padding:9px 11px; border-radius:8px; color:var(--tx2); text-decoration:none; font-size:14px; font-weight:600; white-space:nowrap}
+.lmenu a .flag{min-width:24px; font-family:'Inter',var(--font); font-size:11px; font-weight:800; color:var(--tx3); letter-spacing:.04em}
+.lmenu a.on{color:var(--acc); background:rgba(247,166,0,.1)}
+.lmenu a.on .flag{color:var(--acc)}
+/* 영문·중문판 보정 (KO 원본에서는 무효) */
+html[lang="en"] .steps li{font-size:15px}
+html[lang="en"] .tip p{font-size:13px}
+html[lang="en"] .ti small{font-size:10.5px}
+html[lang="zh-CN"] body{font-family:'Inter','Noto Sans SC','Noto Sans KR',-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif}
+.bar{position:relative; z-index:3; flex:none; height:2px; background:var(--line); margin:0 20px; border-radius:2px; overflow:hidden}
+.bar i{display:block; height:100%; width:0; background:linear-gradient(90deg,var(--acc-dim),var(--acc2)); transition:width .35s cubic-bezier(.4,0,.2,1)}
+
+.track{
+  position:relative; z-index:2; flex:1 1 auto; min-height:0;
+  display:flex; align-items:center; gap:16px; padding:14px calc(50% - var(--card-w)/2) 8px;
+  overflow-x:auto; overflow-y:hidden;
+  scroll-snap-type:x mandatory; scroll-behavior:smooth; scrollbar-width:none;
+}
+.track::-webkit-scrollbar{display:none}
+.card{
+  scroll-snap-align:center;
+  flex:0 0 var(--card-w); width:var(--card-w); height:var(--card-h);
+  background:linear-gradient(168deg,#17191e 0%,#101115 100%);
+  border:1px solid var(--line); border-radius:20px;
+  padding:24px 26px 20px; position:relative;
+  display:flex; flex-direction:column; overflow:hidden;
+}
+.card[hidden]{display:none}                 /* 섹션 보기: 지금 섹션 카드만 트랙에 깔림 */
+.card{transition:opacity .28s ease}
+.card:not(.cur){opacity:.35; cursor:pointer}
+.card:not(.cur):hover{opacity:.55}
+@media print{.card{opacity:1!important}}
+.card::before{
+  content:''; position:absolute; left:26px; right:26px; top:0; height:2px;
+  background:linear-gradient(90deg,var(--acc),transparent); border-radius:2px;
+}
+.card.cover::before{background:linear-gradient(90deg,var(--acc),var(--acc2),transparent)}
+.card.warn::before{background:linear-gradient(90deg,var(--rose),transparent)}
+.body{
+  flex:1 1 auto; min-height:0; overflow-y:auto; scrollbar-width:thin;
+  display:flex; flex-direction:column;      /* ↓ .tip을 바닥에 붙이기 위한 컨테이너 */
+}
+.body > .tip:last-child{margin-top:auto}    /* ★경고 박스는 항상 카드 아래쪽 같은 자리에 */
+.body::-webkit-scrollbar{width:3px}
+.body::-webkit-scrollbar-thumb{background:#2a2d34; border-radius:3px}
+
+.head{flex:none; display:flex; align-items:baseline; gap:10px; margin-bottom:8px}
+.sect{font-size:11px; letter-spacing:.16em; font-weight:700; color:var(--acc); text-transform:uppercase}
+.card.warn .sect{color:var(--rose)}
+.num{margin-left:auto; font-size:13px; font-weight:800; color:#33363e; font-variant-numeric:tabular-nums; letter-spacing:.08em}
+/* 어느 앱 화면인지 배지 — 주황 Bybit / 하늘 빗썸 앱 / 회색 ID 앱 */
+.src{font-size:10px; font-weight:700; letter-spacing:.05em; line-height:1.2; color:var(--tx3); border:1px solid var(--line); border-radius:99px; padding:1px 7px; white-space:nowrap}
+.src.bb{color:var(--acc2); border-color:rgba(247,166,0,.38)}
+.src.bt{color:var(--sky); border-color:rgba(108,196,255,.4)}
+.src.app{color:#a7acb6; border-color:#33363e}
+h2{
+  flex:none; font-size:20px; line-height:1.36; font-weight:800; letter-spacing:-.02em;
+  text-wrap:balance; margin-bottom:12px;
+  min-height:var(--h2-h);                   /* 한 줄짜리도 두 줄 자리를 차지 → 카드끼리 줄 맞음 */
+}
+h2 em{font-style:normal; color:var(--acc)}
+p{font-size:15px; line-height:1.68; color:var(--tx2); margin-bottom:10px; word-break:keep-all; text-wrap:pretty}
+p:last-child{margin-bottom:0}
+p strong{color:var(--tx); font-weight:600}
+
+/* ── 화면 캡처 ── */
+.shot{
+  flex:none; display:flex; align-items:center; justify-content:center;
+  background:#08090b; border:1px solid #202228; border-radius:13px;
+  padding:10px 10px 25px; margin-bottom:13px; position:relative; overflow:hidden; cursor:zoom-in;
+  height:var(--media-h);
+}
+/* .fr = 이미지 박스 그 자체 → 마크(%) 좌표가 항상 정확히 맞는다 (확대 보기에서도 그대로) */
+.fr{position:relative; aspect-ratio:var(--ar)}
+.fr img{display:block; width:100%; height:100%; border-radius:5px}
+.shot .fr{width:min(100%, calc(var(--media-in) * var(--ar)))}
+.mark{
+  position:absolute; left:var(--x); top:var(--y); width:var(--w); height:var(--h);
+  border:2px solid var(--acc); border-radius:7px;
+  box-shadow:0 0 0 1.5px rgba(0,0,0,.55), 0 0 0 5px rgba(247,166,0,.16); pointer-events:none;
+}
+.mark::after{
+  content:attr(data-n); position:absolute; left:-10px; top:-10px;
+  width:20px; height:20px; border-radius:50%; background:var(--acc); color:var(--on-acc);
+  box-shadow:0 0 0 2px rgba(0,0,0,.55);
+  font-family:'Inter',var(--font); font-size:11.5px; font-weight:800;
+  display:grid; place-items:center;
+}
+.mark[data-side="r"]::after{left:auto; right:-10px}
+.zoom{
+  position:absolute; left:0; right:0; bottom:7px; text-align:center;
+  font-size:10.5px; letter-spacing:.04em; color:var(--tx3); pointer-events:none;
+}
+
+/* ── 캡처 자리(로그인 화면 — 캡처 받으면 그림으로 교체) ── */
+.slot{
+  flex:none; height:var(--media-h); border:1.5px dashed #34373f; border-radius:13px;
+  margin-bottom:13px; padding:14px; text-align:center;
+  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px;
+  background:repeating-linear-gradient(135deg,#0d0e11,#0d0e11 9px,#101115 9px,#101115 18px);
+}
+.slot svg{width:24px; height:24px; stroke:#565b66; fill:none; stroke-width:1.5; stroke-linecap:round; stroke-linejoin:round}
+.slot b{font-size:12px; color:var(--tx2); font-weight:600}
+.slot .p{font-size:11.5px; color:var(--acc2); font-weight:600; letter-spacing:.01em; line-height:1.6}
+
+/* ── 화면 이름표(사진이 아직 없는 카드 — 화면 제목을 그대로 보여 줌. 사진이 오면 figure.shot 으로 교체) ── */
+.scr{
+  flex:none; margin-bottom:13px; padding:13px 16px 14px;
+  border:1px solid #2a2d34; border-radius:13px; background:linear-gradient(180deg,#14151a,#0e0f12);
+  display:flex; flex-direction:column; gap:5px;
+}
+.scr span{font-size:11px; letter-spacing:.06em; color:var(--tx3); font-weight:600}
+.scr b{font-family:'Inter',var(--font); font-size:17px; font-weight:700; color:var(--tx); letter-spacing:-.01em; line-height:1.35; text-wrap:balance}
+.scr b::before{content:''; display:inline-block; width:8px; height:8px; border-radius:50%; background:var(--acc); margin-right:9px; vertical-align:2px}
+
+/* ── Sections 리스트 ── */
+.steps{list-style:none; display:flex; flex-direction:column; gap:9px}
+.steps li{
+  display:flex; gap:9px; align-items:flex-start;
+  font-size:16px; line-height:1.64; color:var(--tx2); word-break:keep-all;
+  text-wrap:pretty;                     /* 마지막 줄에 한 단어만 남는 것 방지 */
+  min-height:calc(16px * 1.64 * 2);   /* ★한 줄이든 두 줄이든 같은 자리 → 카드끼리 줄 맞음 */
+}
+.steps i{
+  flex:none; width:19px; height:19px; margin-top:2px; border-radius:50%;
+  background:rgba(247,166,0,.13); border:1px solid rgba(247,166,0,.36); color:var(--acc2);
+  font-family:'Inter',var(--font); font-style:normal; font-size:11px; font-weight:800;
+  display:grid; place-items:center;
+}
+.steps b{color:var(--tx); font-weight:600; white-space:nowrap}
+.steps code{
+  font-family:'Inter',var(--font); font-weight:600; color:var(--acc2); font-size:14px;
+  background:rgba(247,166,0,.09); border:1px solid rgba(247,166,0,.2);
+  border-radius:5px; padding:1px 6px;
+  white-space:nowrap;
+}
+
+.tip{
+  border-left:3px solid var(--info); background:rgba(127,178,255,.06);
+  border-radius:0 10px 10px 0; padding:10px 13px; margin:12px 0 0;
+}
+.tip > b{display:block; font-size:11.5px; color:var(--info); margin-bottom:3px; font-weight:700}
+.tip p{font-size:13.5px; line-height:1.62; color:#d3d7de; margin:0}
+.tip p b{display:inline; font-size:inherit; color:#fff; font-weight:700; margin:0}
+.tip.hard{border-color:var(--rose); background:rgba(255,107,107,.07)}
+.tip.hard > b{color:var(--rose)}
+
+/* ── 흐름도 ── */
+.flow{display:flex; flex-direction:column; margin-bottom:6px}
+.flow .n{background:#0e0f12; border:1px solid #202228; border-radius:11px; padding:11px 14px}
+.flow .n.on{border-color:rgba(247,166,0,.38); background:rgba(247,166,0,.06)}
+.flow .n b{display:block; font-size:13.5px; color:var(--tx); font-weight:700; margin-bottom:2px}
+.flow .n span{font-size:11.5px; color:var(--tx3); line-height:1.5}
+.flow .ar{height:20px; display:grid; place-items:center; color:#5a4a26; font-size:13px}
+
+.card.cover .body{display:flex; flex-direction:column}
+.cover .cv{margin:auto 0}
+.cover .kick{font-size:11.5px; letter-spacing:.2em; color:var(--acc); font-weight:700; margin-bottom:10px}
+.cover h1{font-size:31px; line-height:1.28; font-weight:900; letter-spacing:-.03em; margin-bottom:13px; text-wrap:balance}
+.cover h1 em{font-style:normal; color:var(--acc)}
+.cover .lead{font-size:13.5px; line-height:1.7; color:var(--tx2); margin-bottom:12px}
+/* ── 표지 Contents (섹션 버튼 5개 — 누르면 그 섹션 첫 카드로) ── */
+.toc{display:flex; flex-direction:column; gap:6px; margin:0 0 12px}
+.ti{
+  display:flex; align-items:center; gap:11px; width:100%; text-align:left; font-family:inherit; cursor:pointer;
+  background:#121318; border:1px solid var(--line); border-radius:12px; padding:8px 12px; color:var(--tx); transition:.18s;
+}
+.ti:hover{border-color:var(--acc); background:#16171c}
+.ti i{
+  flex:none; width:24px; height:24px; border-radius:50%; font-style:normal;
+  background:rgba(247,166,0,.13); border:1px solid rgba(247,166,0,.36); color:var(--acc2);
+  font-family:'Inter',var(--font); font-size:12px; font-weight:800; display:grid; place-items:center;
+}
+.ti span{flex:1 1 auto; min-width:0; display:flex; flex-direction:column; gap:1px}
+.ti b{font-size:14.5px; font-weight:700; color:var(--tx); line-height:1.3}
+.ti small{font-size:11px; color:var(--tx3); line-height:1.4; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.ti em{flex:none; font-style:normal; font-size:11.5px; font-weight:600; color:var(--tx3); font-variant-numeric:tabular-nums}
+.ti em::after{content:' ›'; color:var(--acc); font-weight:800}
+
+.cta{
+  display:block; text-align:center; background:linear-gradient(135deg,var(--acc2),var(--acc));
+  color:var(--on-acc); font-weight:800; font-size:15px; padding:14px 20px; border-radius:12px;
+  text-decoration:none; margin:2px 0 9px; box-shadow:0 10px 28px rgba(247,166,0,.2);
+}
+.code{
+  display:flex; align-items:center; gap:10px; flex-wrap:wrap;
+  background:#0e0f12; border:1px solid #202228; border-radius:11px;
+  padding:10px 12px; margin:0 0 12px;
+}
+.code span{font-size:11.5px; color:var(--tx3); line-height:1.5; flex:1 1 150px}
+.code button{
+  font-family:inherit; cursor:pointer; display:flex; align-items:center; gap:9px;
+  background:rgba(247,166,0,.09); border:1px solid rgba(247,166,0,.3);
+  border-radius:8px; padding:6px 10px; transition:.18s;
+}
+.code button:hover{background:rgba(247,166,0,.16); border-color:var(--acc)}
+.code b{font-size:15px; font-weight:800; color:var(--acc2); letter-spacing:.09em; font-variant-numeric:tabular-nums}
+.code i{font-style:normal; font-size:10.5px; color:var(--tx3); letter-spacing:.04em}
+.code button.done i{color:var(--acc)}
+.code.slim{padding:7px 10px; margin:12px 0 0}
+.code.slim span{font-size:11px; flex:1 1 130px}
+.code.slim b{font-size:14px}
+
+.fine.page{
+  flex:none; margin:0; padding:8px 18px 0; border-top:1px solid #1a1c21;
+  font-size:9.8px; line-height:1.55; color:#5d626b; text-align:center;
+}
+.fine.page strong{color:#949aa4}
+.ctl{
+  position:relative; z-index:3; flex:none;
+  display:flex; align-items:center; justify-content:center;
+  padding:10px 20px calc(14px + env(safe-area-inset-bottom));
+}
+.ctl .mid{display:flex; align-items:center; justify-content:center; gap:12px}
+.nav.home2{
+  width:auto; height:36px; border-radius:99px; padding:0 14px; margin-right:4px; white-space:nowrap;
+  font-family:inherit; font-size:13px; font-weight:700; color:var(--tx2); letter-spacing:.02em;
+}
+.nav.home2:hover:not(:disabled){color:var(--acc)}
+/* 표지(Contents)에서는 하단 바에 버튼 없음. 높이는 유지해서 카드 크기가 안 튀게 */
+.ctl.toc .mid{visibility:hidden}
+.nav{
+  width:40px; height:40px; flex:none; border-radius:50%;
+  border:1px solid var(--line); background:#141519; color:var(--tx);
+  display:grid; place-items:center; cursor:pointer; transition:.18s;
+}
+.nav:hover:not(:disabled){border-color:var(--acc); color:var(--acc)}
+.nav:disabled{opacity:.28; cursor:default}
+.nav svg{width:16px; height:16px; fill:none; stroke:currentColor; stroke-width:2.2; stroke-linecap:round; stroke-linejoin:round}
+.pager{
+  flex:none; min-width:196px;
+  display:flex; align-items:baseline; justify-content:center;
+  gap:6px; user-select:none; -webkit-user-select:none;
+}
+.pager .now{font-size:20px; font-weight:800; color:var(--acc); font-variant-numeric:tabular-nums; line-height:1}
+.pager .sl{font-size:14px; font-weight:500; color:#3a3d45}
+.pager .tot{font-size:14px; font-weight:600; color:var(--tx3); font-variant-numeric:tabular-nums}
+.pager .lab{font-size:13.5px; font-weight:600; color:var(--tx2); margin-right:4px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.pager.toc .now,.pager.toc .sl,.pager.toc .tot{display:none}
+.pager.toc .lab{margin:0; font-size:14px}
+
+/* ── 확대 보기 ── */
+.lb{
+  position:fixed; inset:0; z-index:50; background:rgba(5,6,8,.94);
+  display:none; align-items:center; justify-content:center; padding:24px; overflow:auto;
+}
+.lb.on{display:flex}
+.lb .fr{width:min(92vw,560px); flex:none}
+.lb .fr img{border-radius:8px}
+.lb .x{
+  position:fixed; top:16px; right:18px; width:38px; height:38px; border-radius:50%;
+  background:#141519; border:1px solid var(--line); color:var(--tx);
+  display:grid; place-items:center; cursor:pointer; font-size:17px; font-family:inherit;
+}
+
+@media (max-width:560px){
+  /* 폰은 트랙이 허용하는 높이까지 쓰게 풀되(720px 상한) 아주 긴 화면에서 늘어지지 않게 캡 */
+  :root{--card-w:88vw; --card-h:min(100%, 720px)}
+  header{padding:8px 12px 3px; grid-template-columns:1fr; gap:0}
+  .brand{display:none}
+  .tabs .langs{display:none}
+  .lsel{display:block}
+  html[lang="zh-CN"] .tab{font-size:13.5px}
+  html[lang="en"] .tab{font-size:12.5px; padding:5px 6px 8px}
+  html[lang="en"] .tab::after{left:6px; right:6px}
+  html[lang="en"] .tab i{left:6px}
+  html[lang="en"] .tab.home{display:none}   /* 영문은 폰에서 탭이 넘쳐서 'Contents' 탭은 숨김(하단 Contents 버튼이 대신) */
+  .tabs{gap:4px}
+  .tab{padding:5px 9px 8px}
+  .track{padding:12px calc(50% - var(--card-w)/2) 6px; gap:12px}
+  .card{padding:20px 18px 16px; border-radius:17px}
+  .card::before{left:18px; right:18px}
+  h2{font-size:18px}
+  .cover h1{font-size:26px}
+  .ctl{padding:8px 16px calc(12px + env(safe-area-inset-bottom))}
+  .ctl .mid{gap:10px}
+  .pager{min-width:140px}
+}
+@media (max-width:380px){
+  .pager{min-width:128px}
+  .ctl .mid{gap:8px}
+  .nav.home2{padding:0 12px; margin-right:2px}
+  .tab{padding:5px 7px 8px}
+}
+@media (prefers-reduced-motion:reduce){
+  .track{scroll-behavior:auto}
+  .bar i,.tab i,.card{transition:none}
+}
+
+/* ── 인쇄 / PDF — 카드 한 장에 한 페이지, 글자가 살아 있어 링크 클릭·코드 Copy 가능 ── */
+@page{ size:A4; margin:0 }
+@media print{
+  html,body{height:auto!important; overflow:visible!important; display:block!important}
+  body{background:#08090b!important; -webkit-print-color-adjust:exact; print-color-adjust:exact}
+  header,.bar,.ctl,.lb,.zoom{display:none!important}
+  .track{display:block!important; transform:none!important; overflow:visible!important; padding:0!important; gap:0!important; scroll-snap-type:none!important}
+  .card{
+    display:flex!important; flex-direction:column!important;
+    width:172mm!important; max-width:none!important; flex:none!important;
+    height:auto!important; min-height:257mm!important;
+    margin:20mm auto!important; padding:13mm 12mm 10mm!important;
+    border:1px solid var(--line)!important; border-radius:6mm!important;
+    background:linear-gradient(168deg,#17191e 0%,#101115 100%)!important;
+    overflow:hidden!important; page-break-after:always; break-after:page; page-break-inside:avoid; break-inside:avoid;
+  }
+  .card::before{left:12mm; right:12mm; height:1.2mm}
+  .body{overflow:visible!important}
+  .shot{height:auto!important; cursor:default}
+  .shot .fr{width:100%!important; max-width:none!important; margin:0 auto}
+  .cta{box-shadow:none!important}
+  .fine.page{
+    display:flex!important; flex-direction:column; justify-content:center;
+    width:172mm!important; min-height:257mm!important; margin:20mm auto!important;
+    padding:13mm 14mm!important; border:1px solid var(--line)!important;
+    border-radius:6mm!important; background:#101115!important;
+    font-size:11px!important; line-height:1.9!important; text-align:center;
+    page-break-before:always; break-before:page;
+  }
+  .prt{display:block!important; margin-bottom:8mm; font-size:12.5px; color:var(--tx2)}
+  .prt b{color:var(--acc2)}
+}
+.prt{display:none}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brand" id="brand" title="Contents로"><span class="dot"></span><span>BYBIT<i> START GUIDE</i></span></div>
+  <nav class="tabs" id="tabs" aria-label="Sections">
+    <button class="tab home" type="button" data-toc data-title="Contents">Contents<i></i></button>
+    <button class="tab" type="button" data-title="Sign up">Sign up<i></i></button>
+    <button class="tab" type="button" data-title="Security">Security<i></i></button>
+    <button class="tab" type="button" data-title="Identity">ID<i></i></button>
+    <button class="tab" type="button" data-title="Deposit crypto">Deposit<i></i></button>
+    <button class="tab" type="button" data-title="Futures">Futures<i></i></button>
+    <div class="langs" id="langs"><a href="../" data-l="ko">한국어</a><a href="./" data-l="en" class="on">EN</a><a href="../zh/" data-l="zh">中文</a></div>
+    <div class="lsel" id="lsel">
+      <button class="lbtn" id="lbtn" type="button" aria-label="Select language"><span class="flag">EN</span></button>
+      <div class="lmenu">
+        <a href="../" data-l="ko"><span class="flag">KO</span>한국어</a>
+        <a href="./" data-l="en" class="on"><span class="flag">EN</span>English</a>
+        <a href="../zh/" data-l="zh"><span class="flag">中</span>中文</a>
+      </div>
+    </div>
+  </nav>
+  <span></span>
+</header>
+
+<div class="track" id="track" tabindex="0">
+
+  <!-- 표지 = Contents (버튼을 누르면 그 섹션 첫 카드로) -->
+  <article class="card cover">
+    <div class="body"><div class="cv">
+      <div class="kick">5-STEP START GUIDE</div>
+      <h1>Bybit, <em>screen by screen</em><br>just follow along</h1>
+      <p class="lead">Jump to the step you need. Just press the orange boxes in order.</p>
+      <div class="toc">
+        <button class="ti" type="button" data-go="1"><i>1</i><span><b>Sign up</b><small>Email · Country · Code · Password</small></span><em>3 pages</em></button>
+        <button class="ti" type="button" data-go="4"><i>2</i><span><b>Set up security</b><small>Security page · Email check · QR & code</small></span><em>4 pages</em></button>
+        <button class="ti" type="button" data-go="8"><i>3</i><span><b>Verify identity</b><small>Choose ID · Photos · Confirm</small></span><em>3 pages</em></button>
+        <button class="ti" type="button" data-go="11"><i>4</i><span><b>Deposit crypto</b><small>Buy · Address · Send via Tron · Transfer</small></span><em>8 pages</em></button>
+        <button class="ti" type="button" data-go="19"><i>5</i><span><b>Set leverage</b><small>Open · Market · Margin & leverage · Order</small></span><em>5 pages</em></button>
+      </div>
+      <a class="cta" href="#" id="ref0">Go to the sign-up page →</a>
+      <p style="font-size:12px;line-height:1.6;color:var(--tx3);margin:-3px 0 0">
+        This button opens the sign-up page with a <b style="color:var(--tx2);font-weight:700">20% fee cashback</b> already applied.
+      </p>
+    </div></div>
+  </article>
+
+  <!-- Sign up 1 이메일 + 추천 코드 (로그아웃 캡처) -->
+  <article class="card">
+    <div class="head"><span class="sect">Sign up 1</span><span class="src bb">Bybit</span><span class="num">01</span></div>
+    <h2>Enter email,<br><em>check the code</em></h2>
+    <figure class="shot">
+      <div class="fr" style="--ar:1.1257;">
+        <img src="../shots/c02_partner.jpg" alt="Bybit sign-up page — email field, referral code 167951 with a green check and the 20% fee cashback note, Get My Welcome Gifts">
+        <b class="mark" data-n="1" data-side="r" style="--x:0.97%;--y:0.55%;--w:98.06%;--h:24.04%"></b>
+        <b class="mark" data-n="2" data-side="r" style="--x:0.97%;--y:26.23%;--w:98.06%;--h:37.70%"></b>
+        <b class="mark" data-n="3" data-side="r" style="--x:0.97%;--y:81.42%;--w:98.06%;--h:16.39%"></b>
+      </div>
+      <span class="zoom">Tap to enlarge</span>
+    </figure>
+    <div class="body">
+      <ol class="steps">
+        <li><i>1</i><span>Enter your <b>email</b>.<br>The verification code goes to this address.</span></li>
+        <li><i>2</i><span>A green check next to code <b>167951</b> means the discount is on.<br>The code can't be added after sign-up.</span></li>
+        <li><i>3</i><span>The terms box is already ticked.<br>Press <b>Get My Welcome Gifts</b>.</span></li>
+      </ol>
+      <div class="code slim">
+        <span>Using the app? Enter the code manually</span>
+        <button type="button" class="copy" aria-label="Copy referral code"><b>167951</b><i>Copy</i></button>
+      </div>
+    </div>
+  </article>
+
+  <!-- Sign up 2 사는 나라 (새 계정 캡처) -->
+  <article class="card">
+    <div class="head"><span class="sect">Sign up 2</span><span class="src bb">Bybit</span><span class="num">02</span></div>
+    <h2>Choose<br><em>your country</em></h2>
+    <figure class="shot">
+      <div class="fr" style="--ar:1.4713;">
+        <img src="../shots/c50_country.jpg" alt="Bybit sign-up — Where do you live? and Create Account">
+        <b class="mark" data-n="1" data-side="r" style="--x:4.33%;--y:28.03%;--w:91.77%;--h:28.66%"></b>
+        <b class="mark" data-n="2" data-side="r" style="--x:4.33%;--y:75.16%;--w:91.77%;--h:19.75%"></b>
+      </div>
+      <span class="zoom">Tap to enlarge</span>
+    </figure>
+    <div class="body">
+      <ol class="steps">
+        <li><i>1</i><span>Under <b>Where do you live?</b> pick your country.<br>It's usually filled in already.</span></li>
+        <li><i>2</i><span>Check the terms box and press <b>Create Account</b>.<br>If a puzzle appears, slide the piece into place.</span></li>
+      </ol>
+      <div class="tip">
+        <b>Your screen may look a little different</b>
+        <p>Bybit updates its layout now and then. The button names in this guide are the ones shown on screen, so follow those.</p>
+      </div>
+    </div>
+  </article>
+
+  <!-- Sign up 3 이메일 코드 (새 계정 캡처, 메일 주소 가림) -->
+  <article class="card">
+    <div class="head"><span class="sect">Sign up 3</span><span class="src bb">Bybit</span><span class="num">03</span></div>
+    <h2>Enter<br><em>the email code</em></h2>
+    <figure class="shot">
+      <div class="fr" style="--ar:1.5385;">
+        <img src="../shots/c51_email_code.jpg" alt="Bybit Verify your email screen — 6-digit code boxes, 5-minute notice, Resend (email address hidden)">
+        <b class="mark" data-n="1" data-side="r" style="--x:3.75%;--y:25.00%;--w:89.17%;--h:23.08%"></b>
+        <b class="mark" data-n="2" data-side="r" style="--x:3.75%;--y:51.92%;--w:89.17%;--h:22.44%"></b>
+        <b class="mark" data-n="3" data-side="r" style="--x:3.75%;--y:80.13%;--w:89.17%;--h:10.26%"></b>
+      </div>
+      <span class="zoom">Tap to enlarge</span>
+    </figure>
+    <div class="body">
+      <ol class="steps">
+        <li><i>1</i><span>A <b>6-digit</b> code arrives by email.<br>Enter it within <b>5 minutes</b>.</span></li>
+        <li><i>2</i><span>Fill the six boxes and it moves on by itself.</span></li>
+        <li><i>3</i><span>No email? Check your spam folder first.<br>When the timer runs out, use <b>Resend</b>.</span></li>
+      </ol>
+    </div>
+  </article>
+
+  <!-- Sign up 4 비밀번호 (새 계정 캡처) -->
+  <article class="card">
+    <div class="head"><span class="sect">Sign up 4</span><span class="src bb">Bybit</span><span class="num">04</span></div>
+    <h2>Create<br><em>a password</em></h2>
+    <figure class="shot">
+      <div class="fr" style="--ar:1.1795;">
+        <img src="../shots/c52_password.jpg" alt="Bybit Create Password screen — Password field, four rules, Create Account">
+        <b class="mark" data-n="1" data-side="r" style="--x:3.91%;--y:30.26%;--w:92.17%;--h:15.90%"></b>
+        <b class="mark" data-n="2" data-side="r" style="--x:3.91%;--y:47.69%;--w:53.91%;--h:30.77%"></b>
+        <b class="mark" data-n="3" data-side="r" style="--x:3.91%;--y:80.51%;--w:92.17%;--h:15.90%"></b>
+      </div>
+      <span class="zoom">Tap to enlarge</span>
+    </figure>
+    <div class="body">
+      <ol class="steps">
+        <li><i>1</i><span>Type a login password in <b>Password</b>.</span></li>
+        <li><i>2</i><span><b>8–30 characters</b> with an uppercase letter, a lowercase letter and a number.<br>Once all four rules are ticked, you're good.</span></li>
+        <li><i>3</i><span>Press <b>Create Account</b> and you're signed up.</span></li>
+      </ol>
+      <div class="tip">
+        <b>Don't reuse a password from another site</b>
+        <p>An exchange account holds real money,<br>so give it a password you use nowhere else.</p>
+      </div>
+    </div>
+  </article>
+
+  <!-- Security 1 Security 화면 (로그인 캡처) -->
+  <article class="card warn">
+    <div class="head"><span class="sect">Security 1</span><span class="src bb">Bybit</span><span class="num">05</span></div>
+    <h2>Open<br><em>the Security page</em></h2>
+    <figure class="shot">
+      <div class="fr" style="--ar:3.9013;">
+        <img src="../shots/c40_security.jpg" alt="Bybit Security page — Email Authentication, SMS Authentication and Google Two Factor Authentication rows (email hidden)">
+        <b class="mark" data-n="1" data-side="r" style="--x:0.51%;--y:2.63%;--w:98.99%;--h:33.55%"></b>
+        <b class="mark" data-n="2" data-side="r" style="--x:0.51%;--y:73.03%;--w:98.99%;--h:25.00%"></b>
+      </div>
+      <span class="zoom">Tap to enlarge</span>
+    </figure>
+    <div class="body">
+      <ol class="steps">
+        <li><i>1</i><span>Profile icon (top right) › <b>Account</b> › <b>Security</b> on the left.<br>Your sign-up email is already turned on.</span></li>
+        <li><i>2</i><span>Press <b>Settings</b> on the <b>Google Two Factor Authentication</b> row.<br>Once linked, it shows a green dot like here.</span></li>
+      </ol>
+      <div class="tip hard">
+        <b>Finish this before you deposit</b>
+        <p>Withdrawals need both an email code and an authenticator code.<br>Changing the authenticator later locks withdrawals for 24 hours.</p>
+      </div>
+    </div>
+  </article>
+
+  <!-- Security 2 이메일 코드로 확인 (새 계정 캡처, 메일 주소 가림) -->
+  <article class="card">
+    <div class="head"><span class="sect">Security 2</span><span class="src bb">Bybit</span><span class="num">06</span></div>
+    <h2>Confirm it's you<br><em>with an email code</em></h2>
+    <figure class="shot">
+      <div class="fr" style="--ar:1.6333;">
+        <img src="../shots/c53_sec_verify.jpg" alt="Bybit Security Verification window — boxes for the 6-digit email code (email address hidden)">
+        <b class="mark" data-n="1" data-side="r" style="--x:5.31%;--y:24.67%;--w:88.57%;--h:18.67%"></b>
+        <b class="mark" data-n="2" data-side="r" style="--x:5.31%;--y:42.00%;--w:88.57%;--h:22.00%"></b>
+        <b class="mark" data-n="3" data-side="r" style="--x:33.88%;--y:63.33%;--w:60.00%;--h:10.00%"></b>
+      </div>
+      <span class="zoom">Tap to enlarge</span>
+    </figure>
+    <div class="body">
+      <ol class="steps">
+        <li><i>1</i><span><b>Settings</b> opens a <b>Security Verification</b> window<br>and sends a code to your email.</span></li>
+        <li><i>2</i><span>Enter the <b>6-digit</b> code from the email.</span></li>
+        <li><i>3</i><span>No code? Request it again when the timer on the right ends.</span></li>
+      </ol>
+      <div class="tip">
+        <b>Install an authenticator app first</b>
+        <p>Get Google Authenticator (free) from the App Store or Google Play.<br>Microsoft Authenticator works too.</p>
+      </div>
+    </div>
+  </article>
+
+  <!-- Security 3 QR 찍고 코드 넣기 (새 계정 캡처, QR·키 가림) -->
+  <article class="card warn">
+    <div class="head"><span class="sect">Security 3</span><span class="src bb">Bybit</span><span class="num">07</span></div>
+    <h2>Scan the QR,<br><em>enter the code</em></h2>
+    <figure class="shot">
+      <div class="fr" style="--ar:1.1571;">
+        <img src="../shots/c54_ga_qr.jpg" alt="Lower part of Bybit's Set Up Google Two-Factor Authentication window — Google 2FA Code field, QR, Copy key, Confirm (QR and key hidden for security)">
+        <b class="mark" data-n="1" data-side="r" style="--x:6.58%;--y:27.14%;--w:31.69%;--h:36.67%"></b>
+        <b class="mark" data-n="2" data-side="r" style="--x:5.35%;--y:68.10%;--w:35.39%;--h:13.81%"></b>
+        <b class="mark" data-n="3" data-side="r" style="--x:5.35%;--y:1.90%;--w:88.89%;--h:21.90%"></b>
+      </div>
+      <span class="zoom">Tap to enlarge</span>
+    </figure>
+    <div class="body">
+      <ol class="steps">
+        <li><i>1</i><span>In the authenticator app, tap <b>+</b> › <b>Scan a QR code</b>.<br>The QR sits in the grey box shown here.</span></li>
+        <li><i>2</i><span>Can't scan? Type in the key from <b>Copy key</b>.<br>Write the key down on paper.</span></li>
+        <li><i>3</i><span>Type the app's 6 digits into <b>Google 2FA Code</b>, then <b>Confirm</b>.<br>It changes every 30 seconds.</span></li>
+      </ol>
+      <div class="tip hard">
+        <b>Never screenshot this QR or key</b>
+        <p>Anyone with it can make your codes.<br>On a new phone, restore it from the written key.</p>
+      </div>
+    </div>
+  </article>
+
+  <!-- ID 1 신분증 고르기 (새 계정 캡처) -->
+  <article class="card">
+    <div class="head"><span class="sect">Identity 1</span><span class="src bb">Bybit</span><span class="num">08</span></div>
+    <h2>Start<br><em>identity verification</em></h2>
+    <figure class="shot">
+      <div class="fr" style="--ar:1.3393;">
+        <img src="../shots/c55_kyc_doc.jpg" alt="Bybit Proof of Identity screen — country of issue, Document Type (Driver license · ID Card · Passport · Residence permit), Verify to Earn $20">
+        <b class="mark" data-n="1" data-side="r" style="--x:3.73%;--y:12.50%;--w:92.53%;--h:16.07%"></b>
+        <b class="mark" data-n="2" data-side="r" style="--x:3.73%;--y:35.71%;--w:91.47%;--h:31.79%"></b>
+        <b class="mark" data-n="3" data-side="r" style="--x:3.73%;--y:85.36%;--w:92.53%;--h:11.43%"></b>
+      </div>
+      <span class="zoom">Tap to enlarge</span>
+    </figure>
+    <div class="body">
+      <ol class="steps">
+        <li><i>1</i><span>Profile icon › <b>Account</b> › <b>Verify Now</b> under <b>Identity Verification</b>.<br>Pick the country that issued your ID.</span></li>
+        <li><i>2</i><span>Pick your ID under <b>Document Type</b>.<br>Driver license · ID Card · Passport · Residence permit.</span></li>
+        <li><i>3</i><span>The orange button at the bottom takes you to the photo step.</span></li>
+      </ol>
+      <div class="tip">
+        <b>Deposits and futures unlock after verification</b>
+        <p>New accounts can't deposit crypto or trade perpetuals<br>until the first level (Standard) is verified.</p>
+      </div>
+    </div>
+  </article>
+
+  <!-- ID 2 촬영 시작 (새 계정 캡처) -->
+  <article class="card">
+    <div class="head"><span class="sect">Identity 2</span><span class="src bb">Bybit</span><span class="num">09</span></div>
+    <h2>Photograph<br><em>your ID and face</em></h2>
+    <figure class="shot">
+      <div class="fr" style="--ar:0.9269;">
+        <img src="../shots/c56_kyc_start.jpg" alt="Bybit Start Verification screen — three things to prepare, Start, Use mobile phone">
+        <b class="mark" data-n="1" data-side="r" style="--x:2.51%;--y:19.93%;--w:94.98%;--h:28.24%"></b>
+        <b class="mark" data-n="2" data-side="r" style="--x:2.51%;--y:78.74%;--w:94.98%;--h:10.96%"></b>
+        <b class="mark" data-n="3" data-side="r" style="--x:34.77%;--y:92.03%;--w:31.18%;--h:6.64%"></b>
+      </div>
+      <span class="zoom">Tap to enlarge</span>
+    </figure>
+    <div class="body">
+      <ol class="steps">
+        <li><i>1</i><span>Have the physical ID, a bright spot and your face ready.<br>Photo files and scans aren't accepted.</span></li>
+        <li><i>2</i><span><b>Start</b> uses your computer's camera.</span></li>
+        <li><i>3</i><span>No camera on your computer? Choose <b>Use mobile phone</b>.<br>Scan the QR with your phone and continue there.</span></li>
+      </ol>
+      <div class="tip">
+        <b>ID requirements</b>
+        <p>It must be clear and readable, not expired,<br>and you must be 18 or older.</p>
+      </div>
+    </div>
+  </article>
+
+  <!-- ID 3 완료 확인 (로그인 캡처) -->
+  <article class="card">
+    <div class="head"><span class="sect">Identity 3</span><span class="src bb">Bybit</span><span class="num">10</span></div>
+    <h2>Check<br><em>you're verified</em></h2>
+    <figure class="shot">
+      <div class="fr" style="--ar:2.1037;">
+        <img src="../shots/c41_kyc_done.jpg" alt="Bybit Identity Verification page — Identity verified · Standard, Personal Info (name, country and ID number are masked)">
+        <b class="mark" data-n="1" data-side="r" style="--x:30.43%;--y:31.10%;--w:41.45%;--h:14.63%"></b>
+        <b class="mark" data-n="2" data-side="r" style="--x:1.16%;--y:57.32%;--w:97.39%;--h:41.46%"></b>
+      </div>
+      <span class="zoom">Tap to enlarge</span>
+    </figure>
+    <div class="body">
+      <ol class="steps">
+        <li><i>1</i><span>When the review is done it shows <b>Identity verified</b> · <b>Standard</b>.<br>Usually 15 minutes, up to 48 hours.</span></li>
+        <li><i>2</i><span>The name in <b>Personal Info</b> should match the account you send from.<br>Exchanges compare names on larger transfers (Travel Rule).</span></li>
+      </ol>
+      <div class="tip">
+        <b>Nothing to do while it's reviewed</b>
+        <p>You'll get an email and a notification when it's done.<br>Use the time to finish your security setup.</p>
+      </div>
+    </div>
+  </article>
+
+  <!-- Deposit 1 흐름 -->
+  <article class="card warn">
+    <div class="head"><span class="sect">Deposit 1</span><span class="num">11</span></div>
+    <h2>Fund with crypto,<br><em>not a bank transfer</em></h2>
+    <div class="body">
+      <p>This guide funds the account with crypto: buy USDT, then send it to Bybit.</p>
+      <div class="flow">
+        <div class="n"><b>Another exchange or card</b><span>Buy USDT where you already can — an exchange you use, or Bybit's Buy Crypto with a card</span></div>
+        <div class="ar">▼</div>
+        <div class="n"><b>Send as crypto</b><span>Withdraw the USDT to your Bybit deposit address (TRON network)</span></div>
+        <div class="ar">▼</div>
+        <div class="n on"><b>Arrives on Bybit</b><span>Trade right away once it's in Unified Trading</span></div>
+      </div>
+      <div class="tip">
+        <b>Withdrawals are often locked right after a purchase</b>
+        <p>Many exchanges hold crypto withdrawals for a while after a bank deposit or card purchase. Plan ahead.</p>
+      </div>
+    </div>
+  </article>
+
+  <!-- Deposit 3 바이비트 Deposit 화면 (로그인 캡처) -->
+  <article class="card">
+    <div class="head"><span class="sect">Deposit 3</span><span class="src bb">Bybit</span><span class="num">13</span></div>
+    <h2>Open<br><em>the deposit screen</em></h2>
+    <figure class="shot">
+      <div class="fr" style="--ar:1.7696;">
+        <img src="../shots/c42_dep_coin.jpg" alt="Bybit Deposit page — USDT in Choose coin to deposit, Choose a Chain, Confirm deposit details">
+        <b class="mark" data-n="1" data-side="r" style="--x:1.30%;--y:1.38%;--w:16.15%;--h:12.44%"></b>
+        <b class="mark" data-n="2" data-side="r" style="--x:8.07%;--y:39.17%;--w:90.36%;--h:12.90%"></b>
+        <b class="mark" data-n="3" data-side="r" style="--x:8.07%;--y:71.43%;--w:90.36%;--h:12.90%"></b>
+      </div>
+      <span class="zoom">Tap to enlarge</span>
+    </figure>
+    <div class="body">
+      <ol class="steps">
+        <li><i>1</i><span>The <b>Deposit</b> button at the top right opens this page.<br><b>Assets</b> › <b>Deposit</b> works too.</span></li>
+        <li><i>2</i><span>Pick <code>USDT</code> in <b>Choose coin to deposit</b>.<br>Type USDT in the search box to find it fast.</span></li>
+        <li><i>3</i><span>Then <b>Choose a Chain</b> opens.</span></li>
+      </ol>
+    </div>
+  </article>
+
+  <!-- Deposit 4 트론 네트워크 (로그인 캡처) -->
+  <article class="card warn">
+    <div class="head"><span class="sect">Deposit 4</span><span class="src bb">Bybit</span><span class="num">14</span></div>
+    <h2>Choose<br><em>the Tron network</em></h2>
+    <figure class="shot">
+      <div class="fr" style="--ar:1.9692;">
+        <img src="../shots/c43_dep_chain.jpg" alt="Bybit deposit network list — TRON (TRC20), 20 confirmation(s), Min. Deposit Amount 0.005 USDT">
+        <b class="mark" data-n="1" data-side="r" style="--x:8.07%;--y:14.87%;--w:90.36%;--h:14.36%"></b>
+        <b class="mark" data-n="2" style="--x:9.11%;--y:62.05%;--w:60.16%;--h:11.79%"></b>
+        <b class="mark" data-n="3" data-side="r" style="--x:69.53%;--y:62.05%;--w:28.65%;--h:11.79%"></b>
+      </div>
+      <span class="zoom">Tap to enlarge</span>
+    </figure>
+    <div class="body">
+      <ol class="steps">
+        <li><i>1</i><span><b>Select chain</b> opens the network list.</span></li>
+        <li><i>2</i><span>Click <b>TRON (TRC20)</b>.</span></li>
+        <li><i>3</i><span>On the right: it arrives after 20 confirmations,<br>and deposits under <b>0.005 USDT</b> won't be credited.</span></li>
+      </ol>
+      <div class="tip hard">
+        <b>Choose TRON on the sending side too</b>
+        <p>If the sending and receiving networks differ,<br>the coins are lost and can't be recovered.</p>
+      </div>
+    </div>
+  </article>
+
+  <!-- Deposit 5 주소 Copy + 받을 계정 (로그인 캡처, 주소·QR 가림) -->
+  <article class="card warn">
+    <div class="head"><span class="sect">Deposit 5</span><span class="src bb">Bybit</span><span class="num">15</span></div>
+    <h2>Copy the address,<br><em>pick the receiving account</em></h2>
+    <figure class="shot">
+      <div class="fr" style="--ar:1.8168;">
+        <img src="../shots/c44_dep_addr.jpg" alt="Bybit deposit address screen — address and QR hidden for security, Route Deposits To list (Funding · Unified Trading · Flexible Easy Earn)">
+        <b class="mark" data-n="1" data-side="r" style="--x:23.98%;--y:9.90%;--w:69.21%;--h:14.36%"></b>
+        <b class="mark" data-n="2" data-side="r" style="--x:1.36%;--y:64.36%;--w:98.09%;--h:8.42%"></b>
+        <b class="mark" data-n="3" data-side="r" style="--x:71.66%;--y:81.68%;--w:27.79%;--h:8.42%"></b>
+      </div>
+      <span class="zoom">Tap to enlarge</span>
+    </figure>
+    <div class="body">
+      <ol class="steps">
+        <li><i>1</i><span>Copy it with the button next to the address<br>and paste it into the withdrawal screen you send from.</span></li>
+        <li><i>2</i><span><b>Route Deposits To</b> is the account the coins land in.<br>The default is <b>Funding</b>.</span></li>
+        <li><i>3</i><span>Switch it to <b>Unified Trading</b><br>and you can trade without a transfer.</span></li>
+      </ol>
+      <div class="tip hard">
+        <b>Never type the address by hand</b>
+        <p>Always use the copy button. One wrong character and the money is gone.</p>
+      </div>
+    </div>
+  </article>
+
+
+  <!-- Deposit 8 거래 계정으로 옮기기 (로그인 캡처) -->
+  <article class="card">
+    <div class="head"><span class="sect">Deposit 8</span><span class="src bb">Bybit</span><span class="num">18</span></div>
+    <h2>Move funds<br><em>to the trading account</em></h2>
+    <figure class="shot">
+      <div class="fr" style="--ar:0.952;">
+        <img src="../shots/c45_transfer.jpg" alt="Bybit Transfer window — From Funding, To Unified Trading, Coin USDT, Amount and All, Confirm">
+        <b class="mark" data-n="1" data-side="r" style="--x:2.52%;--y:12.40%;--w:94.96%;--h:17.60%"></b>
+        <b class="mark" data-n="2" data-side="r" style="--x:2.52%;--y:44.80%;--w:94.96%;--h:12.80%"></b>
+        <b class="mark" data-n="3" data-side="r" style="--x:2.52%;--y:65.60%;--w:94.96%;--h:12.00%"></b>
+      </div>
+      <span class="zoom">Tap to enlarge</span>
+    </figure>
+    <div class="body">
+      <p>If you set the receiving account to <strong>Unified Trading</strong> earlier, skip this.</p>
+      <ol class="steps">
+        <li><i>1</i><span><b>Assets</b> › <b>Transfer</b>.<br><code>Funding</code> → <code>Unified Trading</code> is the right direction.</span></li>
+        <li><i>2</i><span><b>Coin</b>: <code>USDT</code>.</span></li>
+        <li><i>3</i><span>Enter the <b>Amount</b> (<b>All</b> = everything) and press <b>Confirm</b>.<br>It moves instantly with no fee.</span></li>
+      </ol>
+    </div>
+  </article>
+
+  <!-- Futures 1 화면 열기 (로그아웃 캡처) -->
+  <article class="card">
+    <div class="head"><span class="sect">Futures 1</span><span class="src bb">Bybit</span><span class="num">19</span></div>
+    <h2>Open<br><em>the futures screen</em></h2>
+    <figure class="shot">
+      <div class="fr" style="--ar:1.8116;">
+        <img src="../shots/c30_fut_menu.jpg" alt="Bybit's Trade menu opened — Futures and BTCUSDT in the USDT list">
+        <b class="mark" data-n="1" data-side="r" style="--x:0.32%;--y:1.16%;--w:9.60%;--h:11.59%"></b>
+        <b class="mark" data-n="2" style="--x:1.92%;--y:49.86%;--w:49.28%;--h:19.71%"></b>
+        <b class="mark" data-n="3" data-side="r" style="--x:56.64%;--y:41.16%;--w:42.24%;--h:16.81%"></b>
+      </div>
+      <span class="zoom">Tap to enlarge</span>
+    </figure>
+    <div class="body">
+      <ol class="steps">
+        <li><i>1</i><span>Hover over <b>Trade</b> in the top menu.</span></li>
+        <li><i>2</i><span>Hover over <b>Futures</b>; the markets appear on the right.<br>Keep the <b>USDT</b> tab selected.</span></li>
+        <li><i>3</i><span>Click <b>BTCUSDT</b> to open Bitcoin futures.<br>The address should start with bybit.com/trade/usdt.</span></li>
+      </ol>
+      <div class="tip">
+        <b>Don't mix it up with Spot</b>
+        <p>Spot is for buying coins outright.<br>This guide uses the Futures screen.</p>
+      </div>
+    </div>
+  </article>
+
+  <!-- Futures 2 종목 고르기 (로그아웃 캡처) -->
+  <article class="card">
+    <div class="head"><span class="sect">Futures 2</span><span class="src bb">Bybit</span><span class="num">20</span></div>
+    <h2>Pick<br><em>a market</em></h2>
+    <figure class="shot">
+      <div class="fr" style="--ar:1.3939;">
+        <img src="../shots/c31_symbol.jpg" alt="Bybit futures market list — search box, Perpetual tab, BTCUSDT row">
+        <b class="mark" data-n="1" data-side="r" style="--x:2.17%;--y:1.82%;--w:33.04%;--h:13.94%"></b>
+        <b class="mark" data-n="2" data-side="r" style="--x:3.04%;--y:21.82%;--w:92.17%;--h:13.33%"></b>
+        <b class="mark" data-n="3" data-side="r" style="--x:1.30%;--y:80.00%;--w:96.96%;--h:16.97%"></b>
+      </div>
+      <span class="zoom">Tap to enlarge</span>
+    </figure>
+    <div class="body">
+      <ol class="steps">
+        <li><i>1</i><span>Click <b>☰ BTCUSDT</b> at the top left<br>to open the market list.</span></li>
+        <li><i>2</i><span>Type a coin in the search box,<br>using tickers like BTC, ETH or SOL.</span></li>
+        <li><i>3</i><span>Click a row and the screen switches to it.<br><b>Perpetual</b> means a futures contract with no expiry.</span></li>
+      </ol>
+      <div class="tip">
+        <b>Start with big markets like BTC or ETH</b>
+        <p>High volume means orders fill easily and prices jump less.</p>
+      </div>
+    </div>
+  </article>
+
+  <!-- Futures 3 마진 모드와 Futures (로그인 캡처 두 장면을 나란히) -->
+  <article class="card">
+    <div class="head"><span class="sect">Futures 3</span><span class="src bb">Bybit</span><span class="num">21</span></div>
+    <h2>Set margin mode<br><em>and leverage</em></h2>
+    <figure class="shot">
+      <div class="fr" style="--ar:1.1642;">
+        <img src="../shots/c46_margin_lev.jpg" alt="Bybit order panel — left: the Isolated · Cross · Portfolio list opened from Cross; right: the 1x–150x · Customize list opened from 10.00x">
+        <b class="mark" data-n="1" data-side="r" style="--x:3.21%;--y:17.16%;--w:43.91%;--h:9.70%"></b>
+        <b class="mark" data-n="2" data-side="r" style="--x:54.17%;--y:16.42%;--w:42.63%;--h:80.60%"></b>
+      </div>
+      <span class="zoom">Tap to enlarge</span>
+    </figure>
+    <div class="body">
+      <ol class="steps">
+        <li><i>1</i><span>Click <b>Cross</b> to open the list.<br>Choose <b>Isolated</b>.</span></li>
+        <li><i>2</i><span>Click <b>10.00x</b> for the leverage list.<br>Pick one or set your own with <b>Customize</b>.</span></li>
+      </ol>
+      <div class="tip">
+        <b>Isolated vs Cross</b>
+        <p>Isolated can only lose the money in that position. Cross puts your whole balance on the line, so a big move can wipe it out. The default is Cross&nbsp;·&nbsp;10x.</p>
+      </div>
+    </div>
+  </article>
+
+  <!-- Futures 4 주문 종류·가격·수량 (로그아웃 캡처) -->
+  <article class="card">
+    <div class="head"><span class="sect">Futures 4</span><span class="src bb">Bybit</span><span class="num">22</span></div>
+    <h2>Order type,<br><em>price and amount</em></h2>
+    <figure class="shot">
+      <div class="fr" style="--ar:1.0714;">
+        <img src="../shots/c33_order.jpg" alt="Bybit order panel — Limit · Market · Chase Limit tabs, Price with Last, Quantity with the 0–100% slider">
+        <b class="mark" data-n="1" data-side="r" style="--x:2.00%;--y:2.14%;--w:74.67%;--h:13.57%"></b>
+        <b class="mark" data-n="2" data-side="r" style="--x:2.67%;--y:17.86%;--w:94.67%;--h:18.57%"></b>
+        <b class="mark" data-n="3" data-side="r" style="--x:2.67%;--y:40.00%;--w:94.67%;--h:35.00%"></b>
+      </div>
+      <span class="zoom">Tap to enlarge</span>
+    </figure>
+    <div class="body">
+      <ol class="steps">
+        <li><i>1</i><span><b>Limit</b> waits for your price; <b>Market</b> fills at the current price.<br>The third tab holds advanced orders — skip it at first.</span></li>
+        <li><i>2</i><span><b>Price</b> is your price for a limit order.<br><b>Last</b> fills in the current price.</span></li>
+        <li><i>3</i><span><b>Quantity</b> is the size. Drag the <b>0–100%</b> slider<br>to use a share of your balance.</span></li>
+      </ol>
+      <div class="tip">
+        <b>Market is the easy one at first</b>
+        <p>It fills instantly and needs no price.<br>The trade-off: the fill can be slightly worse.</p>
+      </div>
+    </div>
+  </article>
+
+  <!-- Futures 5 익절·손절과 롱·숏 (로그인 캡처) -->
+  <article class="card warn">
+    <div class="head"><span class="sect">Futures 5</span><span class="src bb">Bybit</span><span class="num">23</span></div>
+    <h2>Long or short,<br><em>with take-profit and stop-loss</em></h2>
+    <figure class="shot">
+      <div class="fr" style="--ar:1.1406;">
+        <img src="../shots/c47_tpsl.jpg" alt="Lower order panel — TP/SL checkbox, Take Profit · Stop Loss fields, Long · Short buttons">
+        <b class="mark" data-n="1" data-side="r" style="--x:1.03%;--y:1.95%;--w:24.32%;--h:12.50%"></b>
+        <b class="mark" data-n="2" data-side="r" style="--x:1.03%;--y:14.84%;--w:97.95%;--h:41.02%"></b>
+        <b class="mark" data-n="3" data-side="r" style="--x:1.03%;--y:78.91%;--w:97.95%;--h:19.14%"></b>
+      </div>
+      <span class="zoom">Tap to enlarge</span>
+    </figure>
+    <div class="body">
+      <ol class="steps">
+        <li><i>1</i><span>Tick <b>TP/SL</b> and two fields appear below.</span></li>
+        <li><i>2</i><span><b>Take Profit</b> is your profit target; <b>Stop Loss</b> caps your loss.</span></li>
+        <li><i>3</i><span><b>Long</b> if you expect a rise, <b>Short</b> if you expect a fall.<br>Filled orders show in the <b>Positions</b> tab below.</span></li>
+      </ol>
+      <div class="tip hard">
+        <b>Always set a stop-loss</b>
+        <p>Leverage liquidates fast when price turns against you.<br>Add an SL price to every order.</p>
+      </div>
+    </div>
+  </article>
+
+</div>
+
+<div class="fine page">
+  <span class="prt">Sign-up link <b>https://partner.bybit.com/b/167951</b><br>Referral code <b>167951</b></span>
+
+  <strong>Not investment advice.</strong> Leveraged trading can lose your entire deposit. Bybit doesn't serve some regions (including the US, mainland China, Hong Kong and Singapore), so check before you sign up. The sign-up button on this page is a referral link.
+</div>
+
+<div class="ctl" id="ctl">
+  <div class="mid">
+    <button class="nav home2" id="home" aria-label="Back to contents">Contents</button>
+    <button class="nav" id="prev" aria-label="Previous"><svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg></button>
+    <div class="pager" id="pager">
+      <span class="lab" id="plab"></span>
+      <b class="now" id="pnow">1</b><span class="sl">/</span><span class="tot" id="ptot">4</span>
+    </div>
+    <button class="nav" id="next" aria-label="Next"><svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg></button>
+  </div>
+</div>
+
+<div class="lb" id="lb"><button class="x" id="lbx" aria-label="Close">✕</button></div>
+
+<script>
+(function(){
+  var REFERRAL_URL  = "https://partner.bybit.com/b/167951";   // 바이비트 추천 링크
+  var REFERRAL_CODE = "167951";                                     // 앱 Sign up 시 직접 입력용 코드
+  var PAGE_UNIT = ' pages', PAGE_UNIT_1 = ' page', LBL_TOC = 'Contents', LBL_COPY = 'Copy', LBL_COPIED = 'Copied';
+  var track = document.getElementById('track');
+  var cards = Array.prototype.slice.call(track.querySelectorAll('.card'));
+  var pnow  = document.getElementById('pnow');
+  var ptot  = document.getElementById('ptot');
+  var plab  = document.getElementById('plab');
+  var prev  = document.getElementById('prev');
+  var next  = document.getElementById('next');
+  var pager = document.getElementById('pager');
+  var home  = document.getElementById('home');
+  var ctl   = document.getElementById('ctl');
+  var tabs  = Array.prototype.slice.call(document.querySelectorAll('#tabs .tab:not([data-toc])'));
+  var tocTab = document.querySelector('#tabs .tab[data-toc]');
+  var lb    = document.getElementById('lb');
+  var idx = 0;
+
+  /* 섹션 = .sect 라벨의 이름 부분("Sign up 3" → "Sign up")이 같은 연속 카드 묶음. 표지는 Contents.
+     페이저·탭·Contents 버튼이 전부 여기서 나온다(총 장수는 화면 어디에도 안 보여준다). */
+  var secs = [], secOf = [];
+  cards.forEach(function(c,i){
+    var e = c.querySelector('.sect');
+    if(!e){ secOf[i] = null; return; }
+    var name = e.textContent.trim().replace(/\s*\d+$/,'');
+    var s = secs[secs.length-1];
+    if(!s || s.name !== name){ s = {name:name, from:i, to:i, n:0, i:secs.length}; secs.push(s); }
+    s.to = i; s.n++;
+    secOf[i] = {s:s, k:s.n};
+    if(/\d+$/.test(e.textContent.trim())) e.textContent = name + ' ' + s.n;
+    var nm = c.querySelector('.num'); if(nm) nm.textContent = String(i).padStart(2,'0');
+  });
+  secs.forEach(function(s,i){
+    var t = tabs[i];
+    s.title = t ? (t.getAttribute('data-title') || s.name) : s.name;
+  });
+  Array.prototype.forEach.call(document.querySelectorAll('.toc .ti'), function(b,i){
+    var s = secs[i]; if(!s) return;
+    b.setAttribute('data-go', s.from);
+    var em = b.querySelector('em'); if(em) em.textContent = s.n + (s.n === 1 ? PAGE_UNIT_1 : PAGE_UNIT);
+  });
+
+  /* 섹션 보기 모드: Contents에선 표지만, 섹션에 들어가면 그 섹션 카드만 트랙에. 뒤로가기 = 직전 섹션/Contents */
+  var mode = -2, vis = [];
+  function apply(){
+    cards.forEach(function(c,i){
+      var show = (mode < 0) ? (i === 0) : !!(secOf[i] && secOf[i].s.i === mode);
+      if(show) c.removeAttribute('hidden'); else c.setAttribute('hidden','');
+    });
+    vis = cards.filter(function(c){ return !c.hasAttribute('hidden'); });
+  }
+  function modeOf(i){ return (i === 0 || !secOf[i]) ? -1 : secOf[i].s.i; }
+  function pushHist(){
+    try{ history.pushState({sec:mode}, '', location.pathname + location.search); }catch(e){}
+  }
+  function detect(){
+    if(!vis.length) return idx;
+    var max = track.scrollWidth - track.clientWidth;
+    if(track.scrollLeft <= 2) return cards.indexOf(vis[0]);
+    if(track.scrollLeft >= max - 2) return cards.indexOf(vis[vis.length-1]);
+    var mid = track.scrollLeft + track.clientWidth/2, best=vis[0], bd=1e9;
+    vis.forEach(function(c){
+      var d = Math.abs((c.offsetLeft + c.offsetWidth/2) - mid);
+      if(d < bd){ bd = d; best = c; }
+    });
+    return cards.indexOf(best);
+  }
+  var navving = false;
+  function go(i, nopush){
+    i = Math.max(0, Math.min(cards.length-1, i));
+    var m = modeOf(i), switched = (m !== mode);
+    if(switched){ mode = m; apply(); if(!nopush) pushHist(); }
+    idx = i;
+    var c = cards[idx];
+    var target = c.offsetLeft + c.offsetWidth/2 - track.clientWidth/2;
+    target = Math.max(0, Math.min(target, track.scrollWidth - track.clientWidth));
+    if(switched){
+      track.style.scrollSnapType = 'none';
+      track.scrollTo({left: target, behavior: 'instant'});
+      track.style.scrollSnapType = '';
+    } else {
+      navving = true;
+      track.style.scrollSnapType = 'none';
+      track.scrollTo({left: target, behavior: 'smooth'});
+    }
+    paint();
+  }
+  function paint(){
+    cards.forEach(function(c,i){ c.classList.toggle('cur', i===idx); });
+    var p = secOf[idx];
+    pager.classList.toggle('toc', !p);
+    ctl.classList.toggle('toc', !p);
+    if(p){ plab.textContent = p.s.name; pnow.textContent = p.k; ptot.textContent = p.s.n; }
+    else { plab.textContent = LBL_TOC; }
+    if(tocTab) tocTab.classList.toggle('on', !p);
+    tabs.forEach(function(t,i){
+      var s = secs[i]; if(!s) return;
+      var on = !!(p && p.s === s), done = p ? (i < p.s.i) : false;
+      t.classList.toggle('on', on); t.classList.toggle('done', done);
+      var frac = done ? 1 : (on ? p.k / s.n : 0);
+      t.querySelector('i').style.width = 'calc((100% - 18px) * ' + frac + ')';
+    });
+    prev.disabled = (mode < 0);
+    next.disabled = (mode >= 0 && idx === cards.length-1);
+    home.disabled = (mode < 0);
+  }
+  function step(d){
+    if(mode < 0){ if(d > 0 && secs[0]) go(secs[0].from); return; }
+    var p = vis.indexOf(cards[idx]);
+    if(d > 0){
+      if(p < vis.length-1) go(cards.indexOf(vis[p+1]));
+      else { var nx = secs[mode+1]; if(nx) go(nx.from); }
+    } else {
+      if(p > 0) go(cards.indexOf(vis[p-1]));
+      else { var pv = secs[mode-1]; go(pv ? pv.to : 0); }
+    }
+  }
+  prev.addEventListener('click', function(){ step(-1); });
+  next.addEventListener('click', function(){ step(1); });
+  tabs.forEach(function(t,i){ t.addEventListener('click', function(){ if(secs[i]) go(secs[i].from); }); });
+  if(tocTab) tocTab.addEventListener('click', function(){ go(0); });
+  home.addEventListener('click', function(){ go(0); });
+  document.getElementById('brand').addEventListener('click', function(){ go(0); });
+  /* 폰 언어 버튼 → 목록 */
+  (function(){
+    var sel = document.getElementById('lsel'), btn = document.getElementById('lbtn'); if(!sel || !btn) return;
+    var on = sel.querySelector('.lmenu a.on .flag'); if(on) btn.querySelector('.flag').textContent = on.textContent;
+    btn.addEventListener('click', function(e){ e.stopPropagation(); sel.classList.toggle('open'); });
+    document.addEventListener('click', function(){ sel.classList.remove('open'); });
+  })();
+  document.addEventListener('click', function(e){
+    var b = e.target && e.target.closest ? e.target.closest('[data-go]') : null;
+    if(!b) return;
+    e.preventDefault();
+    go(parseInt(b.getAttribute('data-go'),10) || 0);
+  });
+
+  track.addEventListener('click', function(e){
+    var el = e.target && e.target.closest ? e.target.closest('.card') : null;
+    if(!el) return;
+    var i = cards.indexOf(el);
+    if(i > -1 && i !== idx){
+      e.preventDefault();
+      e.stopPropagation();
+      go(i);
+    }
+  }, true);
+
+  var tmr;
+  track.addEventListener('scroll', function(){
+    clearTimeout(tmr);
+    tmr = setTimeout(function(){
+      if(navving){
+        navving = false;
+        track.style.scrollSnapType = '';
+        var b = detect();
+        if(b !== idx){ idx = b; }
+        paint();
+        return;
+      }
+      var best = detect();
+      if(best !== idx){ idx = best; paint(); }
+    }, 120);
+  }, {passive:true});
+
+  document.addEventListener('keydown', function(e){
+    if(lb.classList.contains('on')){
+      if(e.key === 'Escape'){ closeLb(); }
+      return;
+    }
+    if(e.key === 'ArrowRight'){ e.preventDefault(); step(1); }
+    if(e.key === 'ArrowLeft'){ e.preventDefault(); step(-1); }
+    if(e.key === 'Home'){ e.preventDefault(); go(mode < 0 ? 0 : secs[mode].from); }
+    if(e.key === 'End'){ e.preventDefault(); go(mode < 0 ? 0 : secs[mode].to); }
+  });
+  window.addEventListener('popstate', function(e){
+    var si = (e.state && typeof e.state.sec === 'number') ? e.state.sec : -1;
+    go(si < 0 || !secs[si] ? 0 : secs[si].from, true);
+  });
+  (function(){
+    try{ history.replaceState({sec:-1}, '', location.pathname + location.search); }catch(e){}
+    go(0, true);
+  })();
+
+  /* 캡처 확대 */
+  function closeLb(){
+    lb.classList.remove('on');
+    var old = lb.querySelector('.fr');
+    if(old) old.remove();
+  }
+  Array.prototype.forEach.call(document.querySelectorAll('.shot'), function(sh){
+    sh.addEventListener('click', function(){
+      closeLb();
+      var clone = sh.querySelector('.fr').cloneNode(true);
+      lb.appendChild(clone);
+      lb.classList.add('on');
+    });
+  });
+  lb.addEventListener('click', function(e){ if(e.target === lb) closeLb(); });
+  document.getElementById('lbx').addEventListener('click', closeLb);
+
+  var refs = [document.getElementById('ref'), document.getElementById('ref0')].filter(Boolean);
+  refs.forEach(function(ref){
+    if(REFERRAL_URL){
+      ref.href = REFERRAL_URL; ref.target = '_blank'; ref.rel = 'noopener sponsored';
+    } else {
+      ref.addEventListener('click', function(e){ e.preventDefault(); });
+      ref.style.opacity = '.5';
+    }
+  });
+  if(!REFERRAL_URL){
+    Array.prototype.forEach.call(document.querySelectorAll('.code'), function(c){ c.remove(); });
+  }
+
+  Array.prototype.forEach.call(document.querySelectorAll('.copy'), function(copy){
+    copy.addEventListener('click', function(){
+      var done = function(){
+        copy.classList.add('done');
+        copy.querySelector('i').textContent = LBL_COPIED;
+        setTimeout(function(){
+          copy.classList.remove('done');
+          copy.querySelector('i').textContent = LBL_COPY;
+        }, 1800);
+      };
+      if(navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(REFERRAL_CODE).then(done, fallback);
+      } else { fallback(); }
+      function fallback(){
+        var ta = document.createElement('textarea');
+        ta.value = REFERRAL_CODE; ta.style.position='fixed'; ta.style.opacity='0';
+        document.body.appendChild(ta); ta.select();
+        try{ document.execCommand('copy'); done(); }catch(e){}
+        document.body.removeChild(ta);
+      }
+    });
+  });
+
+  paint();
+})();
+</script>
+</body>
+</html>

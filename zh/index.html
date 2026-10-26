@@ -1,0 +1,1232 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Bybit 新手指南</title>
+<meta name="description" content="从 Bybit 注册到充值和杠杆，用真实截图带你走完 5 个步骤。">
+<link rel="canonical" href="https://bybitstart.github.io/zh/">
+<link rel="alternate" hreflang="ko" href="https://bybitstart.github.io/">
+<link rel="alternate" hreflang="en" href="https://bybitstart.github.io/en/">
+<link rel="alternate" hreflang="zh" href="https://bybitstart.github.io/zh/">
+<link rel="alternate" hreflang="x-default" href="https://bybitstart.github.io/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230c0d10'/%3E%3Ccircle cx='16' cy='16' r='7' fill='%23f7a600'/%3E%3C/svg%3E">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://bybitstart.github.io/zh/">
+<meta property="og:title" content="Bybit 新手指南">
+<meta property="og:description" content="注册 · 安全 · 身份认证 · 充值——用真实截图带你走完 5 个步骤。">
+<meta property="og:image" content="https://bybitstart.github.io/shots/og_zh.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+KR:wght@400;500;700;900&family=Noto+Sans+SC:wght@400;500;700;900&display=swap">
+<style>
+/* OKX 시작 가이드(okxstart.github.io)와 같은 틀 — 색만 바이비트 주황으로.
+   규격: 제목 두 줄(윗줄 대상 흰색 / 아랫줄 ~하기 주황) · 그림 박스 높이 고정 · 주황 네모 ↔ 설명 번호 1:1 · 설명 16px · 문장 끝에서 줄바꿈 */
+:root{
+  --ink:#0c0d10; --line:#24262c;
+  --acc:#f7a600; --acc2:#ffbb33; --acc-dim:#e39500; --on-acc:#1a1100;
+  --info:#7fb2ff; --rose:#ff6b6b; --sky:#6cc4ff;
+  --tx:#eef0f3; --tx2:#a7acb6; --tx3:#6b717b;
+  --card-w:min(500px, 90vw);
+  --card-h:min(100%, 690px);
+  --media-h:242px;                          /* ★캡처/자리 박스 = 전 카드 동일 높이 */
+  --media-in:calc(var(--media-h) - 35px);   /* 위10 + 아래25 패딩 제외한 실제 그림 높이 */
+  --h2-h:55px;                              /* ★제목 = 전 카드 두 줄 높이로 고정 */
+  --font:'Inter','Noto Sans KR',-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%}
+body{
+  background:var(--ink); color:var(--tx); font-family:var(--font);
+  -webkit-font-smoothing:antialiased; overflow:hidden;
+  display:flex; flex-direction:column;
+}
+body::before{
+  content:''; position:fixed; inset:0; pointer-events:none; z-index:0;
+  background:
+    radial-gradient(900px 520px at 12% -8%, rgba(247,166,0,.10), transparent 62%),
+    radial-gradient(760px 460px at 92% 108%, rgba(247,166,0,.06), transparent 60%);
+}
+
+header{
+  position:relative; z-index:3; flex:none;
+  padding:10px 20px 6px; display:grid; grid-template-columns:1fr auto 1fr; align-items:center; gap:12px;
+}
+.brand{display:flex; align-items:center; gap:9px; font-weight:800; font-size:13px; letter-spacing:.14em; cursor:pointer}
+.dot{width:8px; height:8px; border-radius:50%; background:var(--acc); box-shadow:0 0 12px var(--acc)}
+.brand i{font-style:normal}
+/* ── 상단 섹션 탭 (目录·注册·安全·认证·充值·合约) — 밑줄이 그 섹션 안 진행률 ── */
+.tabs{justify-self:center; flex:none; display:flex; gap:6px}
+.tab{
+  font-family:inherit; cursor:pointer; background:none; border:0; position:relative;
+  color:var(--tx2); font-size:14px; font-weight:700; letter-spacing:.01em; white-space:nowrap;
+  padding:5px 9px 9px; transition:color .18s;
+}
+.tab::after{content:''; position:absolute; left:9px; right:9px; bottom:3px; height:2px; border-radius:2px; background:var(--line)}
+.tab i{
+  position:absolute; left:9px; bottom:3px; height:2px; width:0; border-radius:2px; z-index:1;
+  background:linear-gradient(90deg,var(--acc-dim),var(--acc2));
+  transition:width .35s cubic-bezier(.4,0,.2,1);
+}
+.tab.home{margin-right:6px; padding-right:12px; border-right:1px solid var(--line); border-radius:0}
+.tab.home::after{right:12px}
+.tab.done{color:var(--tx)}
+.tab.on{color:var(--acc)}
+.tab:hover{color:var(--tx)}
+.tab:focus-visible,.nav:focus-visible,.ti:focus-visible,.cta:focus-visible,.code button:focus-visible{outline:2px solid var(--acc2); outline-offset:2px}
+/* ※ 탭 class에 "toc"를 쓰면 표지 目录 리스트 .toc 규칙에 같이 걸림 — 금지 */
+/* ── 언어 전환 (PC: 탭 줄 끝 알약 / 폰: 탭 옆 버튼 → 목록). 바이비트가 받지 않는 나라(미국·중국 본토 등)가 있어 국기 대신 글자 ── */
+.langs{display:flex; gap:2px; border:1px solid var(--line); border-radius:99px; padding:2px; background:#121318; flex:none}
+.langs a{
+  display:inline-flex; align-items:center; justify-content:center; height:24px; padding:0 10px;
+  font-size:11.5px; line-height:1; font-weight:700; color:var(--tx3); text-decoration:none; border-radius:99px; letter-spacing:.02em; white-space:nowrap;
+}
+.langs a.on{background:rgba(247,166,0,.14); color:var(--acc)}
+.langs a:hover{color:var(--tx)}
+.tabs .langs{margin-left:12px; align-self:center}
+.lsel{display:none; position:relative; align-self:center; margin-left:4px}
+.lbtn{
+  min-width:38px; height:30px; border-radius:99px; border:1px solid var(--line); background:#121318; cursor:pointer;
+  display:grid; place-items:center; padding:0 9px; font-family:'Inter',var(--font); font-size:12px; font-weight:800; color:var(--tx2); letter-spacing:.04em;
+}
+.lsel.open .lbtn{border-color:var(--acc); color:var(--acc)}
+.lmenu{
+  display:none; position:absolute; right:0; top:36px; z-index:30; min-width:150px;
+  background:#16171c; border:1px solid var(--line); border-radius:12px; padding:6px; box-shadow:0 12px 32px rgba(0,0,0,.55);
+}
+.lsel.open .lmenu{display:block}
+.lmenu a{display:flex; align-items:center; gap:10px; padding:9px 11px; border-radius:8px; color:var(--tx2); text-decoration:none; font-size:14px; font-weight:600; white-space:nowrap}
+.lmenu a .flag{min-width:24px; font-family:'Inter',var(--font); font-size:11px; font-weight:800; color:var(--tx3); letter-spacing:.04em}
+.lmenu a.on{color:var(--acc); background:rgba(247,166,0,.1)}
+.lmenu a.on .flag{color:var(--acc)}
+/* 영문·중문판 보정 (KO 원본에서는 무효) */
+html[lang="en"] .steps li{font-size:15px}
+html[lang="en"] .tip p{font-size:13px}
+html[lang="en"] .ti small{font-size:10.5px}
+html[lang="zh-CN"] body{font-family:'Inter','Noto Sans SC','Noto Sans KR',-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif}
+.bar{position:relative; z-index:3; flex:none; height:2px; background:var(--line); margin:0 20px; border-radius:2px; overflow:hidden}
+.bar i{display:block; height:100%; width:0; background:linear-gradient(90deg,var(--acc-dim),var(--acc2)); transition:width .35s cubic-bezier(.4,0,.2,1)}
+
+.track{
+  position:relative; z-index:2; flex:1 1 auto; min-height:0;
+  display:flex; align-items:center; gap:16px; padding:14px calc(50% - var(--card-w)/2) 8px;
+  overflow-x:auto; overflow-y:hidden;
+  scroll-snap-type:x mandatory; scroll-behavior:smooth; scrollbar-width:none;
+}
+.track::-webkit-scrollbar{display:none}
+.card{
+  scroll-snap-align:center;
+  flex:0 0 var(--card-w); width:var(--card-w); height:var(--card-h);
+  background:linear-gradient(168deg,#17191e 0%,#101115 100%);
+  border:1px solid var(--line); border-radius:20px;
+  padding:24px 26px 20px; position:relative;
+  display:flex; flex-direction:column; overflow:hidden;
+}
+.card[hidden]{display:none}                 /* 섹션 보기: 지금 섹션 카드만 트랙에 깔림 */
+.card{transition:opacity .28s ease}
+.card:not(.cur){opacity:.35; cursor:pointer}
+.card:not(.cur):hover{opacity:.55}
+@media print{.card{opacity:1!important}}
+.card::before{
+  content:''; position:absolute; left:26px; right:26px; top:0; height:2px;
+  background:linear-gradient(90deg,var(--acc),transparent); border-radius:2px;
+}
+.card.cover::before{background:linear-gradient(90deg,var(--acc),var(--acc2),transparent)}
+.card.warn::before{background:linear-gradient(90deg,var(--rose),transparent)}
+.body{
+  flex:1 1 auto; min-height:0; overflow-y:auto; scrollbar-width:thin;
+  display:flex; flex-direction:column;      /* ↓ .tip을 바닥에 붙이기 위한 컨테이너 */
+}
+.body > .tip:last-child{margin-top:auto}    /* ★경고 박스는 항상 카드 아래쪽 같은 자리에 */
+.body::-webkit-scrollbar{width:3px}
+.body::-webkit-scrollbar-thumb{background:#2a2d34; border-radius:3px}
+
+.head{flex:none; display:flex; align-items:baseline; gap:10px; margin-bottom:8px}
+.sect{font-size:11px; letter-spacing:.16em; font-weight:700; color:var(--acc); text-transform:uppercase}
+.card.warn .sect{color:var(--rose)}
+.num{margin-left:auto; font-size:13px; font-weight:800; color:#33363e; font-variant-numeric:tabular-nums; letter-spacing:.08em}
+/* 어느 앱 화면인지 배지 — 주황 Bybit / 하늘 빗썸 앱 / 회색 认证 앱 */
+.src{font-size:10px; font-weight:700; letter-spacing:.05em; line-height:1.2; color:var(--tx3); border:1px solid var(--line); border-radius:99px; padding:1px 7px; white-space:nowrap}
+.src.bb{color:var(--acc2); border-color:rgba(247,166,0,.38)}
+.src.bt{color:var(--sky); border-color:rgba(108,196,255,.4)}
+.src.app{color:#a7acb6; border-color:#33363e}
+h2{
+  flex:none; font-size:20px; line-height:1.36; font-weight:800; letter-spacing:-.02em;
+  text-wrap:balance; margin-bottom:12px;
+  min-height:var(--h2-h);                   /* 한 줄짜리도 두 줄 자리를 차지 → 카드끼리 줄 맞음 */
+}
+h2 em{font-style:normal; color:var(--acc)}
+p{font-size:15px; line-height:1.68; color:var(--tx2); margin-bottom:10px; word-break:keep-all; text-wrap:pretty}
+p:last-child{margin-bottom:0}
+p strong{color:var(--tx); font-weight:600}
+
+/* ── 화면 캡처 ── */
+.shot{
+  flex:none; display:flex; align-items:center; justify-content:center;
+  background:#08090b; border:1px solid #202228; border-radius:13px;
+  padding:10px 10px 25px; margin-bottom:13px; position:relative; overflow:hidden; cursor:zoom-in;
+  height:var(--media-h);
+}
+/* .fr = 이미지 박스 그 자체 → 마크(%) 좌표가 항상 정확히 맞는다 (확대 보기에서도 그대로) */
+.fr{position:relative; aspect-ratio:var(--ar)}
+.fr img{display:block; width:100%; height:100%; border-radius:5px}
+.shot .fr{width:min(100%, calc(var(--media-in) * var(--ar)))}
+.mark{
+  position:absolute; left:var(--x); top:var(--y); width:var(--w); height:var(--h);
+  border:2px solid var(--acc); border-radius:7px;
+  box-shadow:0 0 0 1.5px rgba(0,0,0,.55), 0 0 0 5px rgba(247,166,0,.16); pointer-events:none;
+}
+.mark::after{
+  content:attr(data-n); position:absolute; left:-10px; top:-10px;
+  width:20px; height:20px; border-radius:50%; background:var(--acc); color:var(--on-acc);
+  box-shadow:0 0 0 2px rgba(0,0,0,.55);
+  font-family:'Inter',var(--font); font-size:11.5px; font-weight:800;
+  display:grid; place-items:center;
+}
+.mark[data-side="r"]::after{left:auto; right:-10px}
+.zoom{
+  position:absolute; left:0; right:0; bottom:7px; text-align:center;
+  font-size:10.5px; letter-spacing:.04em; color:var(--tx3); pointer-events:none;
+}
+
+/* ── 캡처 자리(로그인 화면 — 캡처 받으면 그림으로 교체) ── */
+.slot{
+  flex:none; height:var(--media-h); border:1.5px dashed #34373f; border-radius:13px;
+  margin-bottom:13px; padding:14px; text-align:center;
+  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px;
+  background:repeating-linear-gradient(135deg,#0d0e11,#0d0e11 9px,#101115 9px,#101115 18px);
+}
+.slot svg{width:24px; height:24px; stroke:#565b66; fill:none; stroke-width:1.5; stroke-linecap:round; stroke-linejoin:round}
+.slot b{font-size:12px; color:var(--tx2); font-weight:600}
+.slot .p{font-size:11.5px; color:var(--acc2); font-weight:600; letter-spacing:.01em; line-height:1.6}
+
+/* ── 화면 이름표(사진이 아직 없는 카드 — 화면 제목을 그대로 보여 줌. 사진이 오면 figure.shot 으로 교체) ── */
+.scr{
+  flex:none; margin-bottom:13px; padding:13px 16px 14px;
+  border:1px solid #2a2d34; border-radius:13px; background:linear-gradient(180deg,#14151a,#0e0f12);
+  display:flex; flex-direction:column; gap:5px;
+}
+.scr span{font-size:11px; letter-spacing:.06em; color:var(--tx3); font-weight:600}
+.scr b{font-family:'Inter',var(--font); font-size:17px; font-weight:700; color:var(--tx); letter-spacing:-.01em; line-height:1.35; text-wrap:balance}
+.scr b::before{content:''; display:inline-block; width:8px; height:8px; border-radius:50%; background:var(--acc); margin-right:9px; vertical-align:2px}
+
+/* ── 章节 리스트 ── */
+.steps{list-style:none; display:flex; flex-direction:column; gap:9px}
+.steps li{
+  display:flex; gap:9px; align-items:flex-start;
+  font-size:16px; line-height:1.64; color:var(--tx2); word-break:keep-all;
+  text-wrap:pretty;                     /* 마지막 줄에 한 단어만 남는 것 방지 */
+  min-height:calc(16px * 1.64 * 2);   /* ★한 줄이든 두 줄이든 같은 자리 → 카드끼리 줄 맞음 */
+}
+.steps i{
+  flex:none; width:19px; height:19px; margin-top:2px; border-radius:50%;
+  background:rgba(247,166,0,.13); border:1px solid rgba(247,166,0,.36); color:var(--acc2);
+  font-family:'Inter',var(--font); font-style:normal; font-size:11px; font-weight:800;
+  display:grid; place-items:center;
+}
+.steps b{color:var(--tx); font-weight:600; white-space:nowrap}
+.steps code{
+  font-family:'Inter',var(--font); font-weight:600; color:var(--acc2); font-size:14px;
+  background:rgba(247,166,0,.09); border:1px solid rgba(247,166,0,.2);
+  border-radius:5px; padding:1px 6px;
+  white-space:nowrap;
+}
+
+.tip{
+  border-left:3px solid var(--info); background:rgba(127,178,255,.06);
+  border-radius:0 10px 10px 0; padding:10px 13px; margin:12px 0 0;
+}
+.tip > b{display:block; font-size:11.5px; color:var(--info); margin-bottom:3px; font-weight:700}
+.tip p{font-size:13.5px; line-height:1.62; color:#d3d7de; margin:0}
+.tip p b{display:inline; font-size:inherit; color:#fff; font-weight:700; margin:0}
+.tip.hard{border-color:var(--rose); background:rgba(255,107,107,.07)}
+.tip.hard > b{color:var(--rose)}
+
+/* ── 흐름도 ── */
+.flow{display:flex; flex-direction:column; margin-bottom:6px}
+.flow .n{background:#0e0f12; border:1px solid #202228; border-radius:11px; padding:11px 14px}
+.flow .n.on{border-color:rgba(247,166,0,.38); background:rgba(247,166,0,.06)}
+.flow .n b{display:block; font-size:13.5px; color:var(--tx); font-weight:700; margin-bottom:2px}
+.flow .n span{font-size:11.5px; color:var(--tx3); line-height:1.5}
+.flow .ar{height:20px; display:grid; place-items:center; color:#5a4a26; font-size:13px}
+
+.card.cover .body{display:flex; flex-direction:column}
+.cover .cv{margin:auto 0}
+.cover .kick{font-size:11.5px; letter-spacing:.2em; color:var(--acc); font-weight:700; margin-bottom:10px}
+.cover h1{font-size:31px; line-height:1.28; font-weight:900; letter-spacing:-.03em; margin-bottom:13px; text-wrap:balance}
+.cover h1 em{font-style:normal; color:var(--acc)}
+.cover .lead{font-size:13.5px; line-height:1.7; color:var(--tx2); margin-bottom:12px}
+/* ── 표지 目录 (섹션 버튼 5개 — 누르면 그 섹션 첫 카드로) ── */
+.toc{display:flex; flex-direction:column; gap:6px; margin:0 0 12px}
+.ti{
+  display:flex; align-items:center; gap:11px; width:100%; text-align:left; font-family:inherit; cursor:pointer;
+  background:#121318; border:1px solid var(--line); border-radius:12px; padding:8px 12px; color:var(--tx); transition:.18s;
+}
+.ti:hover{border-color:var(--acc); background:#16171c}
+.ti i{
+  flex:none; width:24px; height:24px; border-radius:50%; font-style:normal;
+  background:rgba(247,166,0,.13); border:1px solid rgba(247,166,0,.36); color:var(--acc2);
+  font-family:'Inter',var(--font); font-size:12px; font-weight:800; display:grid; place-items:center;
+}
+.ti span{flex:1 1 auto; min-width:0; display:flex; flex-direction:column; gap:1px}
+.ti b{font-size:14.5px; font-weight:700; color:var(--tx); line-height:1.3}
+.ti small{font-size:11px; color:var(--tx3); line-height:1.4; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.ti em{flex:none; font-style:normal; font-size:11.5px; font-weight:600; color:var(--tx3); font-variant-numeric:tabular-nums}
+.ti em::after{content:' ›'; color:var(--acc); font-weight:800}
+
+.cta{
+  display:block; text-align:center; background:linear-gradient(135deg,var(--acc2),var(--acc));
+  color:var(--on-acc); font-weight:800; font-size:15px; padding:14px 20px; border-radius:12px;
+  text-decoration:none; margin:2px 0 9px; box-shadow:0 10px 28px rgba(247,166,0,.2);
+}
+.code{
+  display:flex; align-items:center; gap:10px; flex-wrap:wrap;
+  background:#0e0f12; border:1px solid #202228; border-radius:11px;
+  padding:10px 12px; margin:0 0 12px;
+}
+.code span{font-size:11.5px; color:var(--tx3); line-height:1.5; flex:1 1 150px}
+.code button{
+  font-family:inherit; cursor:pointer; display:flex; align-items:center; gap:9px;
+  background:rgba(247,166,0,.09); border:1px solid rgba(247,166,0,.3);
+  border-radius:8px; padding:6px 10px; transition:.18s;
+}
+.code button:hover{background:rgba(247,166,0,.16); border-color:var(--acc)}
+.code b{font-size:15px; font-weight:800; color:var(--acc2); letter-spacing:.09em; font-variant-numeric:tabular-nums}
+.code i{font-style:normal; font-size:10.5px; color:var(--tx3); letter-spacing:.04em}
+.code button.done i{color:var(--acc)}
+.code.slim{padding:7px 10px; margin:12px 0 0}
+.code.slim span{font-size:11px; flex:1 1 130px}
+.code.slim b{font-size:14px}
+
+.fine.page{
+  flex:none; margin:0; padding:8px 18px 0; border-top:1px solid #1a1c21;
+  font-size:9.8px; line-height:1.55; color:#5d626b; text-align:center;
+}
+.fine.page strong{color:#949aa4}
+.ctl{
+  position:relative; z-index:3; flex:none;
+  display:flex; align-items:center; justify-content:center;
+  padding:10px 20px calc(14px + env(safe-area-inset-bottom));
+}
+.ctl .mid{display:flex; align-items:center; justify-content:center; gap:12px}
+.nav.home2{
+  width:auto; height:36px; border-radius:99px; padding:0 14px; margin-right:4px; white-space:nowrap;
+  font-family:inherit; font-size:13px; font-weight:700; color:var(--tx2); letter-spacing:.02em;
+}
+.nav.home2:hover:not(:disabled){color:var(--acc)}
+/* 표지(目录)에서는 하단 바에 버튼 없음. 높이는 유지해서 카드 크기가 안 튀게 */
+.ctl.toc .mid{visibility:hidden}
+.nav{
+  width:40px; height:40px; flex:none; border-radius:50%;
+  border:1px solid var(--line); background:#141519; color:var(--tx);
+  display:grid; place-items:center; cursor:pointer; transition:.18s;
+}
+.nav:hover:not(:disabled){border-color:var(--acc); color:var(--acc)}
+.nav:disabled{opacity:.28; cursor:default}
+.nav svg{width:16px; height:16px; fill:none; stroke:currentColor; stroke-width:2.2; stroke-linecap:round; stroke-linejoin:round}
+.pager{
+  flex:none; min-width:196px;
+  display:flex; align-items:baseline; justify-content:center;
+  gap:6px; user-select:none; -webkit-user-select:none;
+}
+.pager .now{font-size:20px; font-weight:800; color:var(--acc); font-variant-numeric:tabular-nums; line-height:1}
+.pager .sl{font-size:14px; font-weight:500; color:#3a3d45}
+.pager .tot{font-size:14px; font-weight:600; color:var(--tx3); font-variant-numeric:tabular-nums}
+.pager .lab{font-size:13.5px; font-weight:600; color:var(--tx2); margin-right:4px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.pager.toc .now,.pager.toc .sl,.pager.toc .tot{display:none}
+.pager.toc .lab{margin:0; font-size:14px}
+
+/* ── 확대 보기 ── */
+.lb{
+  position:fixed; inset:0; z-index:50; background:rgba(5,6,8,.94);
+  display:none; align-items:center; justify-content:center; padding:24px; overflow:auto;
+}
+.lb.on{display:flex}
+.lb .fr{width:min(92vw,560px); flex:none}
+.lb .fr img{border-radius:8px}
+.lb .x{
+  position:fixed; top:16px; right:18px; width:38px; height:38px; border-radius:50%;
+  background:#141519; border:1px solid var(--line); color:var(--tx);
+  display:grid; place-items:center; cursor:pointer; font-size:17px; font-family:inherit;
+}
+
+@media (max-width:560px){
+  /* 폰은 트랙이 허용하는 높이까지 쓰게 풀되(720px 상한) 아주 긴 화면에서 늘어지지 않게 캡 */
+  :root{--card-w:88vw; --card-h:min(100%, 720px)}
+  header{padding:8px 12px 3px; grid-template-columns:1fr; gap:0}
+  .brand{display:none}
+  .tabs .langs{display:none}
+  .lsel{display:block}
+  html[lang="zh-CN"] .tab{font-size:13.5px}
+  html[lang="en"] .tab{font-size:12.5px; padding:5px 6px 8px}
+  html[lang="en"] .tab::after{left:6px; right:6px}
+  html[lang="en"] .tab i{left:6px}
+  html[lang="en"] .tab.home{display:none}   /* 영문은 폰에서 탭이 넘쳐서 '目录' 탭은 숨김(하단 Contents 버튼이 대신) */
+  .tabs{gap:4px}
+  .tab{padding:5px 9px 8px}
+  .track{padding:12px calc(50% - var(--card-w)/2) 6px; gap:12px}
+  .card{padding:20px 18px 16px; border-radius:17px}
+  .card::before{left:18px; right:18px}
+  h2{font-size:18px}
+  .cover h1{font-size:26px}
+  .ctl{padding:8px 16px calc(12px + env(safe-area-inset-bottom))}
+  .ctl .mid{gap:10px}
+  .pager{min-width:140px}
+}
+@media (max-width:380px){
+  .pager{min-width:128px}
+  .ctl .mid{gap:8px}
+  .nav.home2{padding:0 12px; margin-right:2px}
+  .tab{padding:5px 7px 8px}
+}
+@media (prefers-reduced-motion:reduce){
+  .track{scroll-behavior:auto}
+  .bar i,.tab i,.card{transition:none}
+}
+
+/* ── 인쇄 / PDF — 카드 한 장에 한 페이지, 글자가 살아 있어 링크 클릭·코드 复制 가능 ── */
+@page{ size:A4; margin:0 }
+@media print{
+  html,body{height:auto!important; overflow:visible!important; display:block!important}
+  body{background:#08090b!important; -webkit-print-color-adjust:exact; print-color-adjust:exact}
+  header,.bar,.ctl,.lb,.zoom{display:none!important}
+  .track{display:block!important; transform:none!important; overflow:visible!important; padding:0!important; gap:0!important; scroll-snap-type:none!important}
+  .card{
+    display:flex!important; flex-direction:column!important;
+    width:172mm!important; max-width:none!important; flex:none!important;
+    height:auto!important; min-height:257mm!important;
+    margin:20mm auto!important; padding:13mm 12mm 10mm!important;
+    border:1px solid var(--line)!important; border-radius:6mm!important;
+    background:linear-gradient(168deg,#17191e 0%,#101115 100%)!important;
+    overflow:hidden!important; page-break-after:always; break-after:page; page-break-inside:avoid; break-inside:avoid;
+  }
+  .card::before{left:12mm; right:12mm; height:1.2mm}
+  .body{overflow:visible!important}
+  .shot{height:auto!important; cursor:default}
+  .shot .fr{width:100%!important; max-width:none!important; margin:0 auto}
+  .cta{box-shadow:none!important}
+  .fine.page{
+    display:flex!important; flex-direction:column; justify-content:center;
+    width:172mm!important; min-height:257mm!important; margin:20mm auto!important;
+    padding:13mm 14mm!important; border:1px solid var(--line)!important;
+    border-radius:6mm!important; background:#101115!important;
+    font-size:11px!important; line-height:1.9!important; text-align:center;
+    page-break-before:always; break-before:page;
+  }
+  .prt{display:block!important; margin-bottom:8mm; font-size:12.5px; color:var(--tx2)}
+  .prt b{color:var(--acc2)}
+}
+.prt{display:none}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brand" id="brand" title="目录로"><span class="dot"></span><span>BYBIT<i> START GUIDE</i></span></div>
+  <nav class="tabs" id="tabs" aria-label="章节">
+    <button class="tab home" type="button" data-toc data-title="目录">目录<i></i></button>
+    <button class="tab" type="button" data-title="注册">注册<i></i></button>
+    <button class="tab" type="button" data-title="安全设置">安全<i></i></button>
+    <button class="tab" type="button" data-title="身份认证">认证<i></i></button>
+    <button class="tab" type="button" data-title="充值加密货币">充值<i></i></button>
+    <button class="tab" type="button" data-title="杠杆">合约<i></i></button>
+    <div class="langs" id="langs"><a href="../" data-l="ko">한국어</a><a href="../en/" data-l="en">EN</a><a href="./" data-l="zh" class="on">中文</a></div>
+    <div class="lsel" id="lsel">
+      <button class="lbtn" id="lbtn" type="button" aria-label="选择语言"><span class="flag">中</span></button>
+      <div class="lmenu">
+        <a href="../" data-l="ko"><span class="flag">KO</span>한국어</a>
+        <a href="../en/" data-l="en"><span class="flag">EN</span>English</a>
+        <a href="./" data-l="zh" class="on"><span class="flag">中</span>中文</a>
+      </div>
+    </div>
+  </nav>
+  <span></span>
+</header>
+
+<div class="track" id="track" tabindex="0">
+
+  <!-- 표지 = 目录 (버튼을 누르면 그 섹션 첫 카드로) -->
+  <article class="card cover">
+    <div class="body"><div class="cv">
+      <div class="kick">5 步新手指南</div>
+      <h1>Bybit，<em>照着真实界面</em><br>一步步做就行</h1>
+      <p class="lead">从你需要的步骤开始。按顺序点橙色框就行。</p>
+      <div class="toc">
+        <button class="ti" type="button" data-go="1"><i>1</i><span><b>注册账号</b><small>邮箱与邀请码 · 居住国家 · 验证码 · 密码</small></span><em>3 页</em></button>
+        <button class="ti" type="button" data-go="4"><i>2</i><span><b>安全设置</b><small>安全页面 · 邮箱验证 · 二维码与验证码</small></span><em>4 页</em></button>
+        <button class="ti" type="button" data-go="8"><i>3</i><span><b>身份认证</b><small>选择证件 · 拍照 · 确认完成</small></span><em>3 页</em></button>
+        <button class="ti" type="button" data-go="11"><i>4</i><span><b>充值加密货币</b><small>购买 · 地址 · Tron 提币 · 划转</small></span><em>8 页</em></button>
+        <button class="ti" type="button" data-go="19"><i>5</i><span><b>设置杠杆</b><small>打开页面 · 选品种 · 保证金与杠杆 · 下单</small></span><em>5 页</em></button>
+      </div>
+      <a class="cta" href="#" id="ref0">直接进入注册页面 →</a>
+      <p style="font-size:12px;line-height:1.6;color:var(--tx3);margin:-3px 0 0">
+        通过这个按钮进入，注册页面会自动带上<b style="color:var(--tx2);font-weight:700">20% 手续费返现</b>。
+      </p>
+    </div></div>
+  </article>
+
+  <!-- 注册 1 이메일 + 추천 코드 (로그아웃 캡처) -->
+  <article class="card">
+    <div class="head"><span class="sect">注册 1</span><span class="src bb">Bybit</span><span class="num">01</span></div>
+    <h2>填写邮箱<br><em>确认邀请码</em></h2>
+    <figure class="shot">
+      <div class="fr" style="--ar:1.1257;">
+        <img src="../shots/c02_partner.jpg" alt="Bybit 注册页面——邮箱栏、邀请码 167951 与绿色对勾、20% 手续费返现提示、Get My Welcome Gifts">
+        <b class="mark" data-n="1" data-side="r" style="--x:0.97%;--y:0.55%;--w:98.06%;--h:24.04%"></b>
+        <b class="mark" data-n="2" data-side="r" style="--x:0.97%;--y:26.23%;--w:98.06%;--h:37.70%"></b>
+        <b class="mark" data-n="3" data-side="r" style="--x:0.97%;--y:81.42%;--w:98.06%;--h:16.39%"></b>
+      </div>
+      <span class="zoom">点击放大</span>
+    </figure>
+    <div class="body">
+      <ol class="steps">
+        <li><i>1</i><span>填写<b>邮箱</b>。<br>验证码会发到这个邮箱。</span></li>
+        <li><i>2</i><span>邀请码 <b>167951</b> 旁边出现绿色对勾，说明优惠已生效。<br>注册后就不能再填邀请码了。</span></li>
+        <li><i>3</i><span>条款已经勾选好了。<br>点 <b>Get My Welcome Gifts</b>。</span></li>
+      </ol>
+      <div class="code slim">
+        <span>用 App 注册请手动输入邀请码</span>
+        <button type="button" class="copy" aria-label="复制邀请码"><b>167951</b><i>复制</i></button>
+      </div>
+    </div>
+  </article>
+
+  <!-- 注册 2 사는 나라 (새 계정 캡처) -->
+  <article class="card">
+    <div class="head"><span class="sect">注册 2</span><span class="src bb">Bybit</span><span class="num">02</span></div>
+    <h2>选择<br><em>居住国家</em></h2>
+    <figure class="shot">
+      <div class="fr" style="--ar:1.4713;">
+        <img src="../shots/c50_country.jpg" alt="Bybit 注册——Where do you live? 和 Create Account">
+        <b class="mark" data-n="1" data-side="r" style="--x:4.33%;--y:28.03%;--w:91.77%;--h:28.66%"></b>
+        <b class="mark" data-n="2" data-side="r" style="--x:4.33%;--y:75.16%;--w:91.77%;--h:19.75%"></b>
+      </div>
+      <span class="zoom">点击放大</span>
+    </figure>
+    <div class="body">
+      <ol class="steps">
+        <li><i>1</i><span>在 <b>Where do you live?</b> 选择你所在的国家。<br>通常已经自动选好。</span></li>
+        <li><i>2</i><span>确认已勾选条款，点 <b>Create Account</b>。<br>出现拼图时，把滑块拖到缺口处。</span></li>
+      </ol>
+      <div class="tip">
+        <b>页面可能略有不同</b>
+        <p>Bybit 会不定期改版。本指南里的按钮名称以页面实际显示的英文为准，照着找就行。</p>
+      </div>
+    </div>
+  </article>
+
+  <!-- 注册 3 이메일 코드 (새 계정 캡처, 메일 주소 가림) -->
+  <article class="card">
+    <div class="head"><span class="sect">注册 3</span><span class="src bb">Bybit</span><span class="num">03</span></div>
+    <h2>输入<br><em>邮箱验证码</em></h2>
+    <figure class="shot">
+      <div class="fr" style="--ar:1.5385;">
+        <img src="../shots/c51_email_code.jpg" alt="Bybit Verify your email 页面——6 位验证码、5 分钟有效提示、Resend（邮箱地址已遮挡）">
+        <b class="mark" data-n="1" data-side="r" style="--x:3.75%;--y:25.00%;--w:89.17%;--h:23.08%"></b>
+        <b class="mark" data-n="2" data-side="r" style="--x:3.75%;--y:51.92%;--w:89.17%;--h:22.44%"></b>
+        <b class="mark" data-n="3" data-side="r" style="--x:3.75%;--y:80.13%;--w:89.17%;--h:10.26%"></b>
+      </div>
+      <span class="zoom">点击放大</span>
+    </figure>
+    <div class="body">
+      <ol class="steps">
+        <li><i>1</i><span>邮箱会收到 <b>6 位</b>验证码。<br>要在 <b>5 分钟</b>内输入。</span></li>
+        <li><i>2</i><span>填满六个格子会自动进入下一步。</span></li>
+        <li><i>3</i><span>没收到邮件先看垃圾箱。<br>倒计时结束后可点 <b>Resend</b> 重发。</span></li>
+      </ol>
+    </div>
+  </article>
+
+  <!-- 注册 4 비밀번호 (새 계정 캡처) -->
+  <article class="card">
+    <div class="head"><span class="sect">注册 4</span><span class="src bb">Bybit</span><span class="num">04</span></div>
+    <h2>设置<br><em>登录密码</em></h2>
+    <figure class="shot">
+      <div class="fr" style="--ar:1.1795;">
+        <img src="../shots/c52_password.jpg" alt="Bybit Create Password 页面——Password 栏、4 条规则、Create Account">
+        <b class="mark" data-n="1" data-side="r" style="--x:3.91%;--y:30.26%;--w:92.17%;--h:15.90%"></b>
+        <b class="mark" data-n="2" data-side="r" style="--x:3.91%;--y:47.69%;--w:53.91%;--h:30.77%"></b>
+        <b class="mark" data-n="3" data-side="r" style="--x:3.91%;--y:80.51%;--w:92.17%;--h:15.90%"></b>
+      </div>
+      <span class="zoom">点击放大</span>
+    </figure>
+    <div class="body">
+      <ol class="steps">
+        <li><i>1</i><span>在 <b>Password</b> 栏设置登录密码。</span></li>
+        <li><i>2</i><span><b>8~30 位</b>，至少含一个大写字母、小写字母和数字。<br>四条都打勾就通过了。</span></li>
+        <li><i>3</i><span>点 <b>Create Account</b> 就注册完成。</span></li>
+      </ol>
+      <div class="tip">
+        <b>不要用和其他网站相同的密码</b>
+        <p>交易所账户里是真金白银，<br>最好设一个只在这里用的密码。</p>
+      </div>
+    </div>
+  </article>
+
+  <!-- 安全 1 安全 화면 (로그인 캡처) -->
+  <article class="card warn">
+    <div class="head"><span class="sect">安全 1</span><span class="src bb">Bybit</span><span class="num">05</span></div>
+    <h2>打开<br><em>安全页面</em></h2>
+    <figure class="shot">
+      <div class="fr" style="--ar:3.9013;">
+        <img src="../shots/c40_security.jpg" alt="Bybit Security 页面——Email Authentication、SMS Authentication、Google Two Factor Authentication 三行（邮箱已遮挡）">
+        <b class="mark" data-n="1" data-side="r" style="--x:0.51%;--y:2.63%;--w:98.99%;--h:33.55%"></b>
+        <b class="mark" data-n="2" data-side="r" style="--x:0.51%;--y:73.03%;--w:98.99%;--h:25.00%"></b>
+      </div>
+      <span class="zoom">点击放大</span>
+    </figure>
+    <div class="body">
+      <ol class="steps">
+        <li><i>1</i><span>右上角人像图标 › <b>Account</b> › 左侧 <b>Security</b>。<br>注册邮箱已经是开启状态。</span></li>
+        <li><i>2</i><span>点 <b>Google Two Factor Authentication</b> 那一行的 <b>Settings</b>。<br>绑定完成后会像图中一样出现绿点。</span></li>
+      </ol>
+      <div class="tip hard">
+        <b>充值前先完成</b>
+        <p>提币时需要邮箱验证码和验证器验证码两样。<br>以后更换验证器会锁定提币 24 小时。</p>
+      </div>
+    </div>
+  </article>
+
+  <!-- 安全 2 이메일 코드로 확인 (새 계정 캡처, 메일 주소 가림) -->
+  <article class="card">
+    <div class="head"><span class="sect">安全 2</span><span class="src bb">Bybit</span><span class="num">06</span></div>
+    <h2>用邮箱验证码<br><em>确认本人</em></h2>
+    <figure class="shot">
+      <div class="fr" style="--ar:1.6333;">
+        <img src="../shots/c53_sec_verify.jpg" alt="Bybit Security Verification 窗口——邮箱 6 位验证码输入框（邮箱地址已遮挡）">
+        <b class="mark" data-n="1" data-side="r" style="--x:5.31%;--y:24.67%;--w:88.57%;--h:18.67%"></b>
+        <b class="mark" data-n="2" data-side="r" style="--x:5.31%;--y:42.00%;--w:88.57%;--h:22.00%"></b>
+        <b class="mark" data-n="3" data-side="r" style="--x:33.88%;--y:63.33%;--w:60.00%;--h:10.00%"></b>
+      </div>
+      <span class="zoom">点击放大</span>
+    </figure>
+    <div class="body">
+      <ol class="steps">
+        <li><i>1</i><span>点 <b>Settings</b> 会弹出 <b>Security Verification</b> 窗口，<br>验证码发到注册邮箱。</span></li>
+        <li><i>2</i><span>输入邮件里的 <b>6 位</b>验证码。</span></li>
+        <li><i>3</i><span>没收到的话，等右侧倒计时结束后可重新获取。</span></li>
+      </ol>
+      <div class="tip">
+        <b>先在手机上装好验证器 App</b>
+        <p>在 App Store 或 Google Play 下载 Google Authenticator（免费）。<br>Microsoft Authenticator 也可以。</p>
+      </div>
+    </div>
+  </article>
+
+  <!-- 安全 3 QR 찍고 코드 넣기 (새 계정 캡처, QR·키 가림) -->
+  <article class="card warn">
+    <div class="head"><span class="sect">安全 3</span><span class="src bb">Bybit</span><span class="num">07</span></div>
+    <h2>扫描二维码<br><em>输入验证码</em></h2>
+    <figure class="shot">
+      <div class="fr" style="--ar:1.1571;">
+        <img src="../shots/c54_ga_qr.jpg" alt="Bybit Set Up Google Two-Factor Authentication 窗口下半部分——Google 2FA Code 栏、二维码、Copy key、Confirm（二维码和密钥已遮挡）">
+        <b class="mark" data-n="1" data-side="r" style="--x:6.58%;--y:27.14%;--w:31.69%;--h:36.67%"></b>
+        <b class="mark" data-n="2" data-side="r" style="--x:5.35%;--y:68.10%;--w:35.39%;--h:13.81%"></b>
+        <b class="mark" data-n="3" data-side="r" style="--x:5.35%;--y:1.90%;--w:88.89%;--h:21.90%"></b>
+      </div>
+      <span class="zoom">点击放大</span>
+    </figure>
+    <div class="body">
+      <ol class="steps">
+        <li><i>1</i><span>在验证器 App 里点 <b>+</b> › <b>Scan a QR code</b> 扫描二维码。<br>图中的灰色方块就是二维码的位置。</span></li>
+        <li><i>2</i><span>扫不了就把 <b>Copy key</b> 的密钥手动填进 App。<br>这个密钥请抄在纸上保存。</span></li>
+        <li><i>3</i><span>把 App 上的 6 位数填进 <b>Google 2FA Code</b>，点 <b>Confirm</b>。<br>每 30 秒会变一次，要尽快填。</span></li>
+      </ol>
+      <div class="tip hard">
+        <b>不要截图这个二维码和密钥</b>
+        <p>别人拿到它就能生成你的验证码。<br>换手机时用抄下的密钥恢复。</p>
+      </div>
+    </div>
+  </article>
+
+  <!-- 认证 1 신분증 고르기 (새 계정 캡처) -->
+  <article class="card">
+    <div class="head"><span class="sect">身份认证 1</span><span class="src bb">Bybit</span><span class="num">08</span></div>
+    <h2>开始<br><em>身份认证</em></h2>
+    <figure class="shot">
+      <div class="fr" style="--ar:1.3393;">
+        <img src="../shots/c55_kyc_doc.jpg" alt="Bybit Proof of Identity 页面——签发国家、Document Type（Driver license · ID Card · Passport · Residence permit）、Verify to Earn $20">
+        <b class="mark" data-n="1" data-side="r" style="--x:3.73%;--y:12.50%;--w:92.53%;--h:16.07%"></b>
+        <b class="mark" data-n="2" data-side="r" style="--x:3.73%;--y:35.71%;--w:91.47%;--h:31.79%"></b>
+        <b class="mark" data-n="3" data-side="r" style="--x:3.73%;--y:85.36%;--w:92.53%;--h:11.43%"></b>
+      </div>
+      <span class="zoom">点击放大</span>
+    </figure>
+    <div class="body">
+      <ol class="steps">
+        <li><i>1</i><span>人像图标 › <b>Account</b> › <b>Identity Verification</b> 的 <b>Verify Now</b>。<br>签发国家选证件的发行国。</span></li>
+        <li><i>2</i><span>在 <b>Document Type</b> 选证件类型。<br>驾照 · 身份证（ID Card）· 护照 · 居留证。</span></li>
+        <li><i>3</i><span>点下方橙色按钮进入拍照步骤。</span></li>
+      </ol>
+      <div class="tip">
+        <b>完成认证才能充值和交易合约</b>
+        <p>新注册账户完成第一级（Standard）认证前，<br>无法充值加密货币，也不能交易永续合约。</p>
+      </div>
+    </div>
+  </article>
+
+  <!-- 认证 2 촬영 시작 (새 계정 캡처) -->
+  <article class="card">
+    <div class="head"><span class="sect">身份认证 2</span><span class="src bb">Bybit</span><span class="num">09</span></div>
+    <h2>拍摄<br><em>证件和人脸</em></h2>
+    <figure class="shot">
+      <div class="fr" style="--ar:0.9269;">
+        <img src="../shots/c56_kyc_start.jpg" alt="Bybit Start Verification 页面——三项准备、Start、Use mobile phone">
+        <b class="mark" data-n="1" data-side="r" style="--x:2.51%;--y:19.93%;--w:94.98%;--h:28.24%"></b>
+        <b class="mark" data-n="2" data-side="r" style="--x:2.51%;--y:78.74%;--w:94.98%;--h:10.96%"></b>
+        <b class="mark" data-n="3" data-side="r" style="--x:34.77%;--y:92.03%;--w:31.18%;--h:6.64%"></b>
+      </div>
+      <span class="zoom">点击放大</span>
+    </figure>
+    <div class="body">
+      <ol class="steps">
+        <li><i>1</i><span>准备好证件原件、明亮的环境和自拍。<br>不接受照片文件或扫描件。</span></li>
+        <li><i>2</i><span>点 <b>Start</b> 用电脑摄像头拍摄。</span></li>
+        <li><i>3</i><span>电脑没有摄像头就选 <b>Use mobile phone</b>。<br>用手机扫二维码接着完成。</span></li>
+      </ol>
+      <div class="tip">
+        <b>证件要求</b>
+        <p>证件要清晰可读、未过期，<br>且本人年满 18 岁。</p>
+      </div>
+    </div>
+  </article>
+
+  <!-- 认证 3 완료 확인 (로그인 캡처) -->
+  <article class="card">
+    <div class="head"><span class="sect">身份认证 3</span><span class="src bb">Bybit</span><span class="num">10</span></div>
+    <h2>确认<br><em>认证完成</em></h2>
+    <figure class="shot">
+      <div class="fr" style="--ar:2.1037;">
+        <img src="../shots/c41_kyc_done.jpg" alt="Bybit Identity Verification 页面——Identity verified · Standard、Personal Info（姓名、国家和证件号已隐藏）">
+        <b class="mark" data-n="1" data-side="r" style="--x:30.43%;--y:31.10%;--w:41.45%;--h:14.63%"></b>
+        <b class="mark" data-n="2" data-side="r" style="--x:1.16%;--y:57.32%;--w:97.39%;--h:41.46%"></b>
+      </div>
+      <span class="zoom">点击放大</span>
+    </figure>
+    <div class="body">
+      <ol class="steps">
+        <li><i>1</i><span>审核完成后会显示 <b>Identity verified</b> · <b>Standard</b>。<br>一般 15 分钟，最长 48 小时。</span></li>
+        <li><i>2</i><span><b>Personal Info</b> 里的姓名要和转出账户的姓名一致。<br>大额转账时交易所会核对姓名（旅行规则）。</span></li>
+      </ol>
+      <div class="tip">
+        <b>审核期间无需做任何事</b>
+        <p>完成后会收到邮件和通知。<br>趁这段时间先把安全设置做好。</p>
+      </div>
+    </div>
+  </article>
+
+  <!-- 充值 1 흐름 -->
+  <article class="card warn">
+    <div class="head"><span class="sect">充值 1</span><span class="num">11</span></div>
+    <h2>用加密货币充值<br><em>而不是银行转账</em></h2>
+    <div class="body">
+      <p>本指南用加密货币入金：先买 USDT，再转到 Bybit。</p>
+      <div class="flow">
+        <div class="n"><b>其他交易所或银行卡</b><span>在你常用的交易所买 USDT，或用 Bybit 的 Buy Crypto 刷卡购买</span></div>
+        <div class="ar">▼</div>
+        <div class="n"><b>以加密货币转账</b><span>把 USDT 提到你的 Bybit 充值地址（TRON 网络）</span></div>
+        <div class="ar">▼</div>
+        <div class="n on"><b>到账 Bybit</b><span>进入 Unified Trading 账户即可交易</span></div>
+      </div>
+      <div class="tip">
+        <b>刚买完币往往暂时不能提</b>
+        <p>很多交易所在法币入金或刷卡买币后会暂时限制提币，请提前准备。</p>
+      </div>
+    </div>
+  </article>
+
+  <!-- 充值 3 바이비트 充值 화면 (로그인 캡처) -->
+  <article class="card">
+    <div class="head"><span class="sect">充值 3</span><span class="src bb">Bybit</span><span class="num">13</span></div>
+    <h2>打开<br><em>充值页面</em></h2>
+    <figure class="shot">
+      <div class="fr" style="--ar:1.7696;">
+        <img src="../shots/c42_dep_coin.jpg" alt="Bybit Deposit 页面——Choose coin to deposit 选 USDT、Choose a Chain、Confirm deposit details">
+        <b class="mark" data-n="1" data-side="r" style="--x:1.30%;--y:1.38%;--w:16.15%;--h:12.44%"></b>
+        <b class="mark" data-n="2" data-side="r" style="--x:8.07%;--y:39.17%;--w:90.36%;--h:12.90%"></b>
+        <b class="mark" data-n="3" data-side="r" style="--x:8.07%;--y:71.43%;--w:90.36%;--h:12.90%"></b>
+      </div>
+      <span class="zoom">点击放大</span>
+    </figure>
+    <div class="body">
+      <ol class="steps">
+        <li><i>1</i><span>点右上角 <b>Deposit</b> 按钮就会打开这个页面。<br>走 <b>Assets</b> › <b>Deposit</b> 也一样。</span></li>
+        <li><i>2</i><span>在 <b>Choose coin to deposit</b> 选 <code>USDT</code>。<br>在搜索框输入 USDT 马上就能找到。</span></li>
+        <li><i>3</i><span>接着会出现 <b>Choose a Chain</b>。</span></li>
+      </ol>
+    </div>
+  </article>
+
+  <!-- 充值 4 트론 네트워크 (로그인 캡처) -->
+  <article class="card warn">
+    <div class="head"><span class="sect">充值 4</span><span class="src bb">Bybit</span><span class="num">14</span></div>
+    <h2>选择<br><em>Tron 网络</em></h2>
+    <figure class="shot">
+      <div class="fr" style="--ar:1.9692;">
+        <img src="../shots/c43_dep_chain.jpg" alt="Bybit 充值网络列表——TRON (TRC20)、20 confirmation(s)、Min. Deposit Amount 0.005 USDT">
+        <b class="mark" data-n="1" data-side="r" style="--x:8.07%;--y:14.87%;--w:90.36%;--h:14.36%"></b>
+        <b class="mark" data-n="2" style="--x:9.11%;--y:62.05%;--w:60.16%;--h:11.79%"></b>
+        <b class="mark" data-n="3" data-side="r" style="--x:69.53%;--y:62.05%;--w:28.65%;--h:11.79%"></b>
+      </div>
+      <span class="zoom">点击放大</span>
+    </figure>
+    <div class="body">
+      <ol class="steps">
+        <li><i>1</i><span>点 <b>Select chain</b> 展开网络列表。</span></li>
+        <li><i>2</i><span>点 <b>TRON (TRC20)</b>。</span></li>
+        <li><i>3</i><span>右侧是到账条件：20 次确认后到账，<br>少于 <b>0.005 USDT</b> 不会入账。</span></li>
+      </ol>
+      <div class="tip hard">
+        <b>转出方也要选 TRON</b>
+        <p>转出和转入的网络不一致，<br>币就会丢失且无法找回。</p>
+      </div>
+    </div>
+  </article>
+
+  <!-- 充值 5 주소 复制 + 받을 계정 (로그인 캡처, 주소·QR 가림) -->
+  <article class="card warn">
+    <div class="head"><span class="sect">充值 5</span><span class="src bb">Bybit</span><span class="num">15</span></div>
+    <h2>复制地址<br><em>选择到账账户</em></h2>
+    <figure class="shot">
+      <div class="fr" style="--ar:1.8168;">
+        <img src="../shots/c44_dep_addr.jpg" alt="Bybit 充值地址页面——地址和二维码已遮挡，Route Deposits To 列表（Funding · Unified Trading · Flexible Easy Earn）">
+        <b class="mark" data-n="1" data-side="r" style="--x:23.98%;--y:9.90%;--w:69.21%;--h:14.36%"></b>
+        <b class="mark" data-n="2" data-side="r" style="--x:1.36%;--y:64.36%;--w:98.09%;--h:8.42%"></b>
+        <b class="mark" data-n="3" data-side="r" style="--x:71.66%;--y:81.68%;--w:27.79%;--h:8.42%"></b>
+      </div>
+      <span class="zoom">点击放大</span>
+    </figure>
+    <div class="body">
+      <ol class="steps">
+        <li><i>1</i><span>用地址右边的复制按钮复制，<br>粘贴到转出方的提币页面。</span></li>
+        <li><i>2</i><span><b>Route Deposits To</b> 是币到账的账户。<br>默认是 <b>Funding</b>。</span></li>
+        <li><i>3</i><span>改成 <b>Unified Trading</b>，<br>到账后不用划转就能交易。</span></li>
+      </ol>
+      <div class="tip hard">
+        <b>不要手动抄写地址</b>
+        <p>一定用复制按钮。错一个字符，钱就没了。</p>
+      </div>
+    </div>
+  </article>
+
+
+  <!-- 充值 8 거래 계정으로 옮기기 (로그인 캡처) -->
+  <article class="card">
+    <div class="head"><span class="sect">充值 8</span><span class="src bb">Bybit</span><span class="num">18</span></div>
+    <h2>划转到<br><em>交易账户</em></h2>
+    <figure class="shot">
+      <div class="fr" style="--ar:0.952;">
+        <img src="../shots/c45_transfer.jpg" alt="Bybit Transfer 窗口——From Funding、To Unified Trading、Coin USDT、Amount 与 All、Confirm">
+        <b class="mark" data-n="1" data-side="r" style="--x:2.52%;--y:12.40%;--w:94.96%;--h:17.60%"></b>
+        <b class="mark" data-n="2" data-side="r" style="--x:2.52%;--y:44.80%;--w:94.96%;--h:12.80%"></b>
+        <b class="mark" data-n="3" data-side="r" style="--x:2.52%;--y:65.60%;--w:94.96%;--h:12.00%"></b>
+      </div>
+      <span class="zoom">点击放大</span>
+    </figure>
+    <div class="body">
+      <p>如果前面已把到账账户设为 <strong>Unified Trading</strong>，可以跳过这一步。</p>
+      <ol class="steps">
+        <li><i>1</i><span><b>Assets</b> › <b>Transfer</b>。<br>方向是 <code>Funding</code> → <code>Unified Trading</code> 就对了。</span></li>
+        <li><i>2</i><span><b>Coin</b> 选 <code>USDT</code>。</span></li>
+        <li><i>3</i><span><b>Amount</b> 填金额，<b>All</b> 为全部。点 <b>Confirm</b>，<br>即时划转、没有手续费。</span></li>
+      </ol>
+    </div>
+  </article>
+
+  <!-- 合约 1 화면 열기 (로그아웃 캡처) -->
+  <article class="card">
+    <div class="head"><span class="sect">合约 1</span><span class="src bb">Bybit</span><span class="num">19</span></div>
+    <h2>打开<br><em>合约页面</em></h2>
+    <figure class="shot">
+      <div class="fr" style="--ar:1.8116;">
+        <img src="../shots/c30_fut_menu.jpg" alt="展开 Bybit 顶部 Trade 菜单——Futures 和 USDT 列表里的 BTCUSDT">
+        <b class="mark" data-n="1" data-side="r" style="--x:0.32%;--y:1.16%;--w:9.60%;--h:11.59%"></b>
+        <b class="mark" data-n="2" style="--x:1.92%;--y:49.86%;--w:49.28%;--h:19.71%"></b>
+        <b class="mark" data-n="3" data-side="r" style="--x:56.64%;--y:41.16%;--w:42.24%;--h:16.81%"></b>
+      </div>
+      <span class="zoom">点击放大</span>
+    </figure>
+    <div class="body">
+      <ol class="steps">
+        <li><i>1</i><span>鼠标移到顶部菜单的 <b>Trade</b> 上。</span></li>
+        <li><i>2</i><span>鼠标移到 <b>Futures</b>，右侧会出现合约品种。<br>确认上方选中的是 <b>USDT</b> 标签。</span></li>
+        <li><i>3</i><span>点 <b>BTCUSDT</b> 打开比特币合约页面。<br>网址以 bybit.com/trade/usdt 开头就对了。</span></li>
+      </ol>
+      <div class="tip">
+        <b>别和 Spot 搞混</b>
+        <p>Spot 是直接买卖现货的页面。<br>本指南以 Futures 页面为准。</p>
+      </div>
+    </div>
+  </article>
+
+  <!-- 合约 2 종목 고르기 (로그아웃 캡처) -->
+  <article class="card">
+    <div class="head"><span class="sect">合约 2</span><span class="src bb">Bybit</span><span class="num">20</span></div>
+    <h2>选择<br><em>合约品种</em></h2>
+    <figure class="shot">
+      <div class="fr" style="--ar:1.3939;">
+        <img src="../shots/c31_symbol.jpg" alt="Bybit 合约品种列表——搜索框、Perpetual 标签、BTCUSDT 一行">
+        <b class="mark" data-n="1" data-side="r" style="--x:2.17%;--y:1.82%;--w:33.04%;--h:13.94%"></b>
+        <b class="mark" data-n="2" data-side="r" style="--x:3.04%;--y:21.82%;--w:92.17%;--h:13.33%"></b>
+        <b class="mark" data-n="3" data-side="r" style="--x:1.30%;--y:80.00%;--w:96.96%;--h:16.97%"></b>
+      </div>
+      <span class="zoom">点击放大</span>
+    </figure>
+    <div class="body">
+      <ol class="steps">
+        <li><i>1</i><span>点左上角 <b>☰ BTCUSDT</b>，<br>打开品种列表。</span></li>
+        <li><i>2</i><span>在搜索框输入币种，<br>用 BTC、ETH、SOL 这样的英文代号。</span></li>
+        <li><i>3</i><span>点列表里的一行，页面就切换过去。<br><b>Perpetual</b> 指没有到期日的永续合约。</span></li>
+      </ol>
+      <div class="tip">
+        <b>新手先从 BTC、ETH 这类大品种开始</b>
+        <p>成交量大，容易成交，价格也不容易乱跳。</p>
+      </div>
+    </div>
+  </article>
+
+  <!-- 合约 3 마진 모드와 杠杆 (로그인 캡처 두 장면을 나란히) -->
+  <article class="card">
+    <div class="head"><span class="sect">合约 3</span><span class="src bb">Bybit</span><span class="num">21</span></div>
+    <h2>设置保证金模式<br><em>和杠杆</em></h2>
+    <figure class="shot">
+      <div class="fr" style="--ar:1.1642;">
+        <img src="../shots/c46_margin_lev.jpg" alt="Bybit 下单面板——左：点 Cross 展开的 Isolated · Cross · Portfolio 列表；右：点 10.00x 展开的 1x~150x · Customize 列表">
+        <b class="mark" data-n="1" data-side="r" style="--x:3.21%;--y:17.16%;--w:43.91%;--h:9.70%"></b>
+        <b class="mark" data-n="2" data-side="r" style="--x:54.17%;--y:16.42%;--w:42.63%;--h:80.60%"></b>
+      </div>
+      <span class="zoom">点击放大</span>
+    </figure>
+    <div class="body">
+      <ol class="steps">
+        <li><i>1</i><span>点 <b>Cross</b> 展开列表，<br>选择 <b>Isolated</b>（逐仓）。</span></li>
+        <li><i>2</i><span>点 <b>10.00x</b> 打开倍数列表。<br>直接选，或用 <b>Customize</b> 自定义。</span></li>
+      </ol>
+      <div class="tip">
+        <b>逐仓（Isolated）和全仓（Cross）的区别</b>
+        <p>逐仓最多亏掉这笔仓位的保证金；全仓以账户全部资金作担保，大行情可能全部亏光。默认是 Cross · 10 倍。</p>
+      </div>
+    </div>
+  </article>
+
+  <!-- 合约 4 주문 종류·가격·수량 (로그아웃 캡처) -->
+  <article class="card">
+    <div class="head"><span class="sect">合约 4</span><span class="src bb">Bybit</span><span class="num">22</span></div>
+    <h2>订单类型、<br><em>价格和数量</em></h2>
+    <figure class="shot">
+      <div class="fr" style="--ar:1.0714;">
+        <img src="../shots/c33_order.jpg" alt="Bybit 下单面板——Limit · Market · Chase Limit 标签、Price 与 Last、Quantity 与 0~100% 滑条">
+        <b class="mark" data-n="1" data-side="r" style="--x:2.00%;--y:2.14%;--w:74.67%;--h:13.57%"></b>
+        <b class="mark" data-n="2" data-side="r" style="--x:2.67%;--y:17.86%;--w:94.67%;--h:18.57%"></b>
+        <b class="mark" data-n="3" data-side="r" style="--x:2.67%;--y:40.00%;--w:94.67%;--h:35.00%"></b>
+      </div>
+      <span class="zoom">点击放大</span>
+    </figure>
+    <div class="body">
+      <ol class="steps">
+        <li><i>1</i><span><b>Limit</b> 按你定的价格挂单，<b>Market</b> 按当前价立即成交。<br>第三个标签是进阶订单，新手可以先不用。</span></li>
+        <li><i>2</i><span><b>Price</b> 是限价单的价格。<br>点 <b>Last</b> 自动填入当前价。</span></li>
+        <li><i>3</i><span><b>Quantity</b> 是数量。拖动下方 <b>0~100%</b> 滑条，<br>可以按资金比例设置。</span></li>
+      </ol>
+      <div class="tip">
+        <b>新手用 Market 最省事</b>
+        <p>立刻成交，也不用填价格。<br>代价是成交价可能稍差一点。</p>
+      </div>
+    </div>
+  </article>
+
+  <!-- 合约 5 익절·손절과 롱·숏 (로그인 캡처) -->
+  <article class="card warn">
+    <div class="head"><span class="sect">合约 5</span><span class="src bb">Bybit</span><span class="num">23</span></div>
+    <h2>开多开空<br><em>设好止盈止损</em></h2>
+    <figure class="shot">
+      <div class="fr" style="--ar:1.1406;">
+        <img src="../shots/c47_tpsl.jpg" alt="下单面板下半部分——TP/SL 勾选、Take Profit · Stop Loss 栏、Long · Short 按钮">
+        <b class="mark" data-n="1" data-side="r" style="--x:1.03%;--y:1.95%;--w:24.32%;--h:12.50%"></b>
+        <b class="mark" data-n="2" data-side="r" style="--x:1.03%;--y:14.84%;--w:97.95%;--h:41.02%"></b>
+        <b class="mark" data-n="3" data-side="r" style="--x:1.03%;--y:78.91%;--w:97.95%;--h:19.14%"></b>
+      </div>
+      <span class="zoom">点击放大</span>
+    </figure>
+    <div class="body">
+      <ol class="steps">
+        <li><i>1</i><span>勾选 <b>TP/SL</b>，下面会出现两个输入框。</span></li>
+        <li><i>2</i><span><b>Take Profit</b> 是止盈价，<b>Stop Loss</b> 是止损价。</span></li>
+        <li><i>3</i><span>看涨点 <b>Long</b>，看跌点 <b>Short</b>。<br>成交后会显示在下方 <b>Positions</b> 标签里。</span></li>
+      </ol>
+      <div class="tip hard">
+        <b>一定要设止损</b>
+        <p>带杠杆时，行情反向会瞬间被强平。<br>每次下单都顺手填上 SL 价格，才能保住本金。</p>
+      </div>
+    </div>
+  </article>
+
+</div>
+
+<div class="fine page">
+  <span class="prt">注册链接 <b>https://partner.bybit.com/b/167951</b><br>邀请码 <b>167951</b></span>
+
+  <strong>不构成投资建议。</strong>杠杆交易可能亏掉全部本金。Bybit 不向部分地区（包括美国、中国大陆、香港和新加坡）提供服务，注册前请先确认。本页注册按钮为推荐（邀请）链接。
+</div>
+
+<div class="ctl" id="ctl">
+  <div class="mid">
+    <button class="nav home2" id="home" aria-label="返回目录">目录</button>
+    <button class="nav" id="prev" aria-label="上一页"><svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg></button>
+    <div class="pager" id="pager">
+      <span class="lab" id="plab"></span>
+      <b class="now" id="pnow">1</b><span class="sl">/</span><span class="tot" id="ptot">4</span>
+    </div>
+    <button class="nav" id="next" aria-label="下一页"><svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg></button>
+  </div>
+</div>
+
+<div class="lb" id="lb"><button class="x" id="lbx" aria-label="关闭">✕</button></div>
+
+<script>
+(function(){
+  var REFERRAL_URL  = "https://partner.bybit.com/b/167951";   // 바이비트 추천 링크
+  var REFERRAL_CODE = "167951";                                     // 앱 注册 시 직접 입력용 코드
+  var PAGE_UNIT = ' 页', PAGE_UNIT_1 = ' 页', LBL_TOC = '目录', LBL_COPY = '复制', LBL_COPIED = '已复制';
+  var track = document.getElementById('track');
+  var cards = Array.prototype.slice.call(track.querySelectorAll('.card'));
+  var pnow  = document.getElementById('pnow');
+  var ptot  = document.getElementById('ptot');
+  var plab  = document.getElementById('plab');
+  var prev  = document.getElementById('prev');
+  var next  = document.getElementById('next');
+  var pager = document.getElementById('pager');
+  var home  = document.getElementById('home');
+  var ctl   = document.getElementById('ctl');
+  var tabs  = Array.prototype.slice.call(document.querySelectorAll('#tabs .tab:not([data-toc])'));
+  var tocTab = document.querySelector('#tabs .tab[data-toc]');
+  var lb    = document.getElementById('lb');
+  var idx = 0;
+
+  /* 섹션 = .sect 라벨의 이름 부분("注册 3" → "注册")이 같은 연속 카드 묶음. 표지는 目录.
+     페이저·탭·目录 버튼이 전부 여기서 나온다(총 장수는 화면 어디에도 안 보여준다). */
+  var secs = [], secOf = [];
+  cards.forEach(function(c,i){
+    var e = c.querySelector('.sect');
+    if(!e){ secOf[i] = null; return; }
+    var name = e.textContent.trim().replace(/\s*\d+$/,'');
+    var s = secs[secs.length-1];
+    if(!s || s.name !== name){ s = {name:name, from:i, to:i, n:0, i:secs.length}; secs.push(s); }
+    s.to = i; s.n++;
+    secOf[i] = {s:s, k:s.n};
+    if(/\d+$/.test(e.textContent.trim())) e.textContent = name + ' ' + s.n;
+    var nm = c.querySelector('.num'); if(nm) nm.textContent = String(i).padStart(2,'0');
+  });
+  secs.forEach(function(s,i){
+    var t = tabs[i];
+    s.title = t ? (t.getAttribute('data-title') || s.name) : s.name;
+  });
+  Array.prototype.forEach.call(document.querySelectorAll('.toc .ti'), function(b,i){
+    var s = secs[i]; if(!s) return;
+    b.setAttribute('data-go', s.from);
+    var em = b.querySelector('em'); if(em) em.textContent = s.n + (s.n === 1 ? PAGE_UNIT_1 : PAGE_UNIT);
+  });
+
+  /* 섹션 보기 모드: 目录에선 표지만, 섹션에 들어가면 그 섹션 카드만 트랙에. 뒤로가기 = 직전 섹션/目录 */
+  var mode = -2, vis = [];
+  function apply(){
+    cards.forEach(function(c,i){
+      var show = (mode < 0) ? (i === 0) : !!(secOf[i] && secOf[i].s.i === mode);
+      if(show) c.removeAttribute('hidden'); else c.setAttribute('hidden','');
+    });
+    vis = cards.filter(function(c){ return !c.hasAttribute('hidden'); });
+  }
+  function modeOf(i){ return (i === 0 || !secOf[i]) ? -1 : secOf[i].s.i; }
+  function pushHist(){
+    try{ history.pushState({sec:mode}, '', location.pathname + location.search); }catch(e){}
+  }
+  function detect(){
+    if(!vis.length) return idx;
+    var max = track.scrollWidth - track.clientWidth;
+    if(track.scrollLeft <= 2) return cards.indexOf(vis[0]);
+    if(track.scrollLeft >= max - 2) return cards.indexOf(vis[vis.length-1]);
+    var mid = track.scrollLeft + track.clientWidth/2, best=vis[0], bd=1e9;
+    vis.forEach(function(c){
+      var d = Math.abs((c.offsetLeft + c.offsetWidth/2) - mid);
+      if(d < bd){ bd = d; best = c; }
+    });
+    return cards.indexOf(best);
+  }
+  var navving = false;
+  function go(i, nopush){
+    i = Math.max(0, Math.min(cards.length-1, i));
+    var m = modeOf(i), switched = (m !== mode);
+    if(switched){ mode = m; apply(); if(!nopush) pushHist(); }
+    idx = i;
+    var c = cards[idx];
+    var target = c.offsetLeft + c.offsetWidth/2 - track.clientWidth/2;
+    target = Math.max(0, Math.min(target, track.scrollWidth - track.clientWidth));
+    if(switched){
+      track.style.scrollSnapType = 'none';
+      track.scrollTo({left: target, behavior: 'instant'});
+      track.style.scrollSnapType = '';
+    } else {
+      navving = true;
+      track.style.scrollSnapType = 'none';
+      track.scrollTo({left: target, behavior: 'smooth'});
+    }
+    paint();
+  }
+  function paint(){
+    cards.forEach(function(c,i){ c.classList.toggle('cur', i===idx); });
+    var p = secOf[idx];
+    pager.classList.toggle('toc', !p);
+    ctl.classList.toggle('toc', !p);
+    if(p){ plab.textContent = p.s.name; pnow.textContent = p.k; ptot.textContent = p.s.n; }
+    else { plab.textContent = LBL_TOC; }
+    if(tocTab) tocTab.classList.toggle('on', !p);
+    tabs.forEach(function(t,i){
+      var s = secs[i]; if(!s) return;
+      var on = !!(p && p.s === s), done = p ? (i < p.s.i) : false;
+      t.classList.toggle('on', on); t.classList.toggle('done', done);
+      var frac = done ? 1 : (on ? p.k / s.n : 0);
+      t.querySelector('i').style.width = 'calc((100% - 18px) * ' + frac + ')';
+    });
+    prev.disabled = (mode < 0);
+    next.disabled = (mode >= 0 && idx === cards.length-1);
+    home.disabled = (mode < 0);
+  }
+  function step(d){
+    if(mode < 0){ if(d > 0 && secs[0]) go(secs[0].from); return; }
+    var p = vis.indexOf(cards[idx]);
+    if(d > 0){
+      if(p < vis.length-1) go(cards.indexOf(vis[p+1]));
+      else { var nx = secs[mode+1]; if(nx) go(nx.from); }
+    } else {
+      if(p > 0) go(cards.indexOf(vis[p-1]));
+      else { var pv = secs[mode-1]; go(pv ? pv.to : 0); }
+    }
+  }
+  prev.addEventListener('click', function(){ step(-1); });
+  next.addEventListener('click', function(){ step(1); });
+  tabs.forEach(function(t,i){ t.addEventListener('click', function(){ if(secs[i]) go(secs[i].from); }); });
+  if(tocTab) tocTab.addEventListener('click', function(){ go(0); });
+  home.addEventListener('click', function(){ go(0); });
+  document.getElementById('brand').addEventListener('click', function(){ go(0); });
+  /* 폰 언어 버튼 → 목록 */
+  (function(){
+    var sel = document.getElementById('lsel'), btn = document.getElementById('lbtn'); if(!sel || !btn) return;
+    var on = sel.querySelector('.lmenu a.on .flag'); if(on) btn.querySelector('.flag').textContent = on.textContent;
+    btn.addEventListener('click', function(e){ e.stopPropagation(); sel.classList.toggle('open'); });
+    document.addEventListener('click', function(){ sel.classList.remove('open'); });
+  })();
+  document.addEventListener('click', function(e){
+    var b = e.target && e.target.closest ? e.target.closest('[data-go]') : null;
+    if(!b) return;
+    e.preventDefault();
+    go(parseInt(b.getAttribute('data-go'),10) || 0);
+  });
+
+  track.addEventListener('click', function(e){
+    var el = e.target && e.target.closest ? e.target.closest('.card') : null;
+    if(!el) return;
+    var i = cards.indexOf(el);
+    if(i > -1 && i !== idx){
+      e.preventDefault();
+      e.stopPropagation();
+      go(i);
+    }
+  }, true);
+
+  var tmr;
+  track.addEventListener('scroll', function(){
+    clearTimeout(tmr);
+    tmr = setTimeout(function(){
+      if(navving){
+        navving = false;
+        track.style.scrollSnapType = '';
+        var b = detect();
+        if(b !== idx){ idx = b; }
+        paint();
+        return;
+      }
+      var best = detect();
+      if(best !== idx){ idx = best; paint(); }
+    }, 120);
+  }, {passive:true});
+
+  document.addEventListener('keydown', function(e){
+    if(lb.classList.contains('on')){
+      if(e.key === 'Escape'){ closeLb(); }
+      return;
+    }
+    if(e.key === 'ArrowRight'){ e.preventDefault(); step(1); }
+    if(e.key === 'ArrowLeft'){ e.preventDefault(); step(-1); }
+    if(e.key === 'Home'){ e.preventDefault(); go(mode < 0 ? 0 : secs[mode].from); }
+    if(e.key === 'End'){ e.preventDefault(); go(mode < 0 ? 0 : secs[mode].to); }
+  });
+  window.addEventListener('popstate', function(e){
+    var si = (e.state && typeof e.state.sec === 'number') ? e.state.sec : -1;
+    go(si < 0 || !secs[si] ? 0 : secs[si].from, true);
+  });
+  (function(){
+    try{ history.replaceState({sec:-1}, '', location.pathname + location.search); }catch(e){}
+    go(0, true);
+  })();
+
+  /* 캡처 확대 */
+  function closeLb(){
+    lb.classList.remove('on');
+    var old = lb.querySelector('.fr');
+    if(old) old.remove();
+  }
+  Array.prototype.forEach.call(document.querySelectorAll('.shot'), function(sh){
+    sh.addEventListener('click', function(){
+      closeLb();
+      var clone = sh.querySelector('.fr').cloneNode(true);
+      lb.appendChild(clone);
+      lb.classList.add('on');
+    });
+  });
+  lb.addEventListener('click', function(e){ if(e.target === lb) closeLb(); });
+  document.getElementById('lbx').addEventListener('click', closeLb);
+
+  var refs = [document.getElementById('ref'), document.getElementById('ref0')].filter(Boolean);
+  refs.forEach(function(ref){
+    if(REFERRAL_URL){
+      ref.href = REFERRAL_URL; ref.target = '_blank'; ref.rel = 'noopener sponsored';
+    } else {
+      ref.addEventListener('click', function(e){ e.preventDefault(); });
+      ref.style.opacity = '.5';
+    }
+  });
+  if(!REFERRAL_URL){
+    Array.prototype.forEach.call(document.querySelectorAll('.code'), function(c){ c.remove(); });
+  }
+
+  Array.prototype.forEach.call(document.querySelectorAll('.copy'), function(copy){
+    copy.addEventListener('click', function(){
+      var done = function(){
+        copy.classList.add('done');
+        copy.querySelector('i').textContent = LBL_COPIED;
+        setTimeout(function(){
+          copy.classList.remove('done');
+          copy.querySelector('i').textContent = LBL_COPY;
+        }, 1800);
+      };
+      if(navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(REFERRAL_CODE).then(done, fallback);
+      } else { fallback(); }
+      function fallback(){
+        var ta = document.createElement('textarea');
+        ta.value = REFERRAL_CODE; ta.style.position='fixed'; ta.style.opacity='0';
+        document.body.appendChild(ta); ta.select();
+        try{ document.execCommand('copy'); done(); }catch(e){}
+        document.body.removeChild(ta);
+      }
+    });
+  });
+
+  paint();
+})();
+</script>
+</body>
+</html>
